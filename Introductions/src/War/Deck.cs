@@ -17,15 +17,11 @@ namespace Cecs475.War {
 		// We have several choices of how to represent a deck of cards. We'll go with the simplest: an array of Card
 		// objects, and a count of how many cards are still in the deck.
 		private Card[] mCards;
+		// We don't want the public to have access to each card in the deck; the order of the cards is private
+		// to the deck, and cards can only be retrieved through methods below.
 
-		// We're going to need a public property to get the number of cards in the deck (but not set!). We could do this
-		// the long way:
-		// private int mCount;
-		// public int Count {
-		//		get { return mCount; }
-		// }
-		// But that's silly. When a property only directly returns/sets a member variable, we can use a C# feature called
-		// auto properties:
+		// We need a public property to get the number of cards in the deck. We need to be able to change that
+		// number, but the public should NOT. (WHY NOT?) So we can make the setter private; only we can call it.
 		/// <summary>
 		/// A count of the number of cards still in the deck.
 		/// </summary>
@@ -33,16 +29,13 @@ namespace Cecs475.War {
 			get;
 			private set;
 		}
-		// When neither the get nor set have a body, C# will automatically create a hidden member variable to represent
-		// the property, then will create get and set methods to manipulate that value. If we add "private" to the set,
-		// then only this class can set the Count value.
 
 		/// <summary>
 		/// Construct a new unshuffled deck.
 		/// </summary>
 		public Deck() {
 			mCards = new Card[NEW_DECK_SIZE];
-			Count = NEW_DECK_SIZE; // this sets the hidden "Count" member to 52, using the private set property.
+			Count = NEW_DECK_SIZE; // this uses the private setter on Count.
 
 			int i = 0;
 			// For simplicity, we will abuse the fact that we know that CardSuit and CardKind are really just integers.
@@ -70,6 +63,7 @@ namespace Cecs475.War {
 				mCards[i] = temp;
 			}
 		}
+
 		/// <summary>
 		/// Deals one card, removing it from the top of the deck.
 		/// </summary>

@@ -38,10 +38,13 @@ namespace Cecs475.War {
 				Card c2 = d2.DealOne();
 
 				int compare = c1.CompareTo(c2);
-				Console.WriteLine("{0} vs. {1} ... {2}", c1, c2,
-					compare == 0 ? "Tie!" :
+				string message = compare == 0 ? "Tie!" :
 					compare < 0 ? "Player 2 wins!" :
-					"Player 1 wins");
+					"Player 1 wins";
+				// An "interpolated string" starts with a $. In the string, {}
+				// surrounds an expression that will be evaluated and placed in the string
+				// at run time.
+				Console.WriteLine($"{c1} vs. {c2} ... {message}");
 
 				// Ask to go to next deal.
 				string again;

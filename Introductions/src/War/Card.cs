@@ -13,7 +13,7 @@ namespace Cecs475.War {
 	/// <summary>
 	/// Represents a single card in a 52-card deck of playing cards.
 	/// </summary>
-	public class Card : IComparable {
+	public class Card {
 		// An enum is a new type whose values can only be taken from the names in the enum declaration. Each value
 		// in the enum is secretly an integer counting up from 0.
 		// Because this type is declared inside Card, other types will have to use the name "Card.Suit"
@@ -40,66 +40,52 @@ namespace Cecs475.War {
 			Ace // == 14
 		}
 
-		// A Card consists of a suit and a kind.
-		private CardSuit mSuit;
-		private CardKind mKind;
+		// Normally we think of class design in terms of FIELDS and METHODS. But .NET goes further,
+		// introducing a third term: PROPERTIES. A property is like a field that is publicly readable
+		// and optionally writeable. Properties allow us to expose certain attributes of an object
+		// through its public API, allowing others to query and sometimes change those attributes.
+
+		// A property is declared with an access modifier, a type, a name, and then a body.
+		public CardSuit Suit {
+			// The body of the property declares whether it is read-only or can also be written to.
+			get;
+			set;
+		}
+		// This is called an "auto property". We specify that the public can get and set the value of
+		// the Suit property. Later we will expand these get/set statements; for now, they declare
+		// a CardSuit field that can be read and written by the public.
+
+		// More compactly, and prettier:
+		public CardKind Kind { get; set; }
+
 
 		// Constructor
 		public Card(CardKind kind, CardSuit suit) {
-			mSuit = suit;
-			mKind = kind;
+			// Since Suit and Kind are properties with setters, we can assign to them as if they
+			// are fields.
+			this.Suit = suit;
+			this.Kind = kind;
 		}
-
-		// Since mSuit is private, we need a way for other classes to access that value. In Java we would do this with a
-		// "get" accessor method. You could do that in C# too, but the preference in .NET languages is to use a property.
-		public CardSuit Suit {
-			// The name of this property is Suit, and its type is CardSuit. Note that this is not a method because there 
-			// are no parentheses.
-			// Inside a property block we can have two other blocks: a get block and a set block.
-			get {
-				// A get block is like an accessor, and is called when someone wants to retrieve a value from the property.
-				// In this case, we just return our private variable.
-				return mSuit;
-			}
-			// If we want others to be able to mutate the property, we can provide a set block as well. It doesn't really
-			// make sense for Suit to need to be mutated after construction, but we can still demo the idea.
-			set {
-				// Someone wants to change the card's suit to a new value. Inside of a set block, we have a special variable
-				// named "value", representing the new value to set the property to.
-				// value can be thought of as the parameter to a Java mutator method.
-				mSuit = value;
-			}
-		}
-
-		// Without the verbose comments, we get something like this:
-		public CardKind Kind {
-			get { return mKind; }
-			set { mKind = value; }
-		}
-		// which is a nicer way of defining an accessor/mutator pair than Java's slightly longer getX/setX standard.
-
 
 		// As in Java, the Object class defines a method ToString for creating a string representation of an object.
 		// The override keyword is mandatory and indicates we are changing the behavior of a method defined in a base
 		// class.
 		public override string ToString() {
-			int kindValue = (int)mKind;
-			string r = null;
+			int kindValue = (int)Kind;
+			string r;
 			if (kindValue >= 2 && kindValue <= 10) {
 				r = kindValue.ToString();
 			}
 			else {
-				r = mKind.ToString(); // ToString on an enum returns the name given in code, e.g., "Jack", "Two", etc.
+				r = Kind.ToString(); // ToString on an enum returns the name given in code, e.g., "Jack", "Two", etc.
 			}
-			return r + " of " + mSuit.ToString();
+			return r + " of " + Suit.ToString();
 		}
 
-		// Compare this card to another, to decide which wins the War game. This is inherited from the IComparable 
-		// interface.
-		public int CompareTo(object obj) {
-			Card c = obj as Card;
+		// Compare this card to another, to decide which wins the War game. 
+		public int CompareTo(Card other) {
 			// compare the cards based on the integer value of their Kind.
-			return this.Kind.CompareTo(c.Kind);
+			return this.Kind.CompareTo(other.Kind);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Cecs475.War {
 	/// <summary>
 	/// Represents a single card in a 52-card deck of playing cards.
 	/// </summary>
-	public class Card {
+	public class Card : IComparable<Card> {
 		// An enum is a new type whose values can only be taken from the names in the enum declaration. Each value
 		// in the enum is secretly an integer counting up from 0.
 		// Because this type is declared inside Card, other types will have to use the name "Card.Suit"

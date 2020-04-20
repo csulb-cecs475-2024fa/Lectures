@@ -28,16 +28,17 @@ namespace Cecs475.Web.BooksDemo.Controllers {
 			return mRepository.Values;
 		}
 
-		public IEnumerable<Book> Get(string publisher) {
-			return mRepository.Values.Where(b => b.Publisher == publisher);
-		}
-
 		// GET: api/Books/5
 		public Book Get(int id) {
 			if (mRepository.ContainsKey(id)) {
 				return mRepository[id];
 			}
 			return null;
+		}
+
+		// GET: api/Books/?publisher=Wrox+Press
+		public IEnumerable<Book> Get(string publisher) {
+			return mRepository.Values.Where(b => b.Publisher == publisher);
 		}
 
 		// POST: api/Books

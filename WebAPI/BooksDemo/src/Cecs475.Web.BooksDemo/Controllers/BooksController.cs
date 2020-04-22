@@ -13,8 +13,8 @@ namespace Cecs475.Web.BooksDemo.Controllers {
 		public BooksController() {
 			mRepository[1] = new Book() {
 				Id = 1,
-				Publisher = "Wrox Press",
-				Title = "Some Book"
+				Publisher = "Leanpub.com",
+				Title = "C#eckmate: Learning C# and Programming Book"
 			};
 			mRepository[2] = new Book() {
 				Id = 2,
@@ -36,7 +36,7 @@ namespace Cecs475.Web.BooksDemo.Controllers {
 			return null;
 		}
 
-		// GET: api/Books/?publisher=Wrox+Press
+		// GET: api/Books?publisher=Wrox+Press
 		public IEnumerable<Book> Get(string publisher) {
 			return mRepository.Values.Where(b => b.Publisher == publisher);
 		}
@@ -48,9 +48,9 @@ namespace Cecs475.Web.BooksDemo.Controllers {
 		}
 
 		// DELETE: api/Books/5
-		public string Delete(int id) {
+		public bool Delete(int id) {
 			mRepository.Remove(id);
-			return mRepository.ContainsKey(id).ToString();
+			return mRepository.ContainsKey(id);
 		}
 	}
 }

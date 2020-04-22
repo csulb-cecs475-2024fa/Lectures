@@ -44,8 +44,8 @@ namespace Cecs475.Scheduling.Web.Controllers {
 		}
 
 		[HttpGet]
-		[Route("{name}")]
-		public CatalogCourseDto GetCourse(string name) {
+		[Route("")]
+		public CatalogCourseDto GetCourse([FromUri]string name) {
 			var course = mContext.Courses.Where(c => c.DepartmentName + " " + c.CourseNumber == name)
 				.SingleOrDefault();
 			if (course == null) {

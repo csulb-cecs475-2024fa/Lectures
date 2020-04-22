@@ -36,20 +36,20 @@ namespace Cecs475.Scheduling.Web.Controllers {
 
 		[HttpGet]
 		[Route("")]
-		public IEnumerable<StudentDto> Get() {
+		public IEnumerable<StudentDto> GetStudents() {
 			return mContext.Students.Select(StudentDto.From);
 		}
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public StudentDto Get(int id) {
+		public StudentDto GetStudent(int id) {
 			return mContext.Students.Where(s => s.Id == id).Select(StudentDto.From)
 				.FirstOrDefault();
 		}
 		
 		[HttpGet]
-		[Route("{name}")]
-		public StudentDto Get(string name) {
+		[Route("")]
+		public StudentDto GetStudent([FromUri]string name) {
 			var result = mContext.Students.Where(s => s.FirstName + " " + s.LastName == name).Select(StudentDto.From)
 				.FirstOrDefault();
 			if (result == null) {

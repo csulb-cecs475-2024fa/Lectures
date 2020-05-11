@@ -12,32 +12,41 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using RestSharp.Deserializers;
 
 namespace Cecs475.Scheduling.RegistrationApp {
+	public class StudentDto {
+		public int Id { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+	}
+
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
+	/// 
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
 		}
 
-		public RegistrationViewModel ViewModel => 
+		public RegistrationViewModel ViewModel =>
 			FindResource("ViewModel") as RegistrationViewModel;
 
 		private void mValidateBtn_Click(object sender, RoutedEventArgs e) {
 			var client = new RestClient(ViewModel.ApiUrl);
-			var request = new RestRequest("api/students/{name}", Method.GET);
+			var request = new RestRequest("api/students?name={name}", Method.GET);
 			request.AddUrlSegment("name", ViewModel.FullName);
-
 			var response = client.Execute(request);
-			if (response.StatusCode == System.Net.HttpStatusCode.NotFound) {
-				MessageBox.Show("Student not found");
+
+			if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+				MessageBox.Show("Success!");
 			}
 			else {
-				MessageBox.Show("Success!");
+				MessageBox.Show("Student not found");
 			}
 		}
 
@@ -47,33 +56,34 @@ namespace Cecs475.Scheduling.RegistrationApp {
 			string[] nameSplit = courseSplit[0].Split(' ');
 
 			var client = new RestClient(ViewModel.ApiUrl);
-			var request = new RestRequest("api/students/{name}", Method.GET);
+			var request = new RestRequest("api/students?name={name}", Method.GET);
 			request.AddUrlSegment("name", ViewModel.FullName);
 			var response = client.Execute(request);
 			if (response.StatusCode == System.Net.HttpStatusCode.NotFound) {
 				MessageBox.Show("Student not found");
 			}
-			else {
+			else if (response.StatusCode == System.Net.HttpStatusCode.OK) {
 				request = new RestRequest("api/register", Method.POST);
+				var loaded = JsonConvert.DeserializeObject<StudentDto>(response.Content);
 
-				JObject obj = JObject.Parse(response.Content);
-				request.AddJsonBody(new {
-					StudentId = (int)obj["Id"],
-					CourseSection = new {
-						SemesterTermId = 2, // hard-code Fall 2017
-						CatalogCourse = new {
-							DepartmentName = nameSplit[0],
-							CourseNumber = nameSplit[1]
-						},
-						SectionNumber = sectionNum,
+				request.AddJsonBody(
+					new {
+						StudentId = loaded.Id,
+						CourseSection = new {
+							SemesterTermId = 2, // hard-code Fall 2017
+							CatalogCourse = new {
+								DepartmentName = nameSplit[0],
+								CourseNumber = nameSplit[1]
+							},
+							SectionNumber = sectionNum,
+						}
 					}
-				});
-
+				);
 				response = client.Execute(request);
 				if (response.StatusCode == System.Net.HttpStatusCode.NotFound) {
-					MessageBox.Show("Course not found");
+					MessageBox.Show("Course not found: " + response.Content);
 				}
-				else {
+				else if (response.StatusCode == System.Net.HttpStatusCode.OK) {
 					int result = Convert.ToInt32(response.Content);
 					MessageBox.Show(result.ToString());
 				}
@@ -85,9 +95,8 @@ namespace Cecs475.Scheduling.RegistrationApp {
 			int sectionNum = Convert.ToInt32(courseSplit[1]);
 			string[] nameSplit = courseSplit[0].Split(' ');
 
-
 			var client = new RestClient(ViewModel.ApiUrl);
-			var request = new RestRequest("api/students/{name}", Method.GET);
+			var request = new RestRequest("api/students?name={name}", Method.GET);
 			request.AddUrlSegment("name", ViewModel.FullName);
 
 			// When an function could cause a blocking operation, it is marked as "async".
@@ -118,9 +127,9 @@ namespace Cecs475.Scheduling.RegistrationApp {
 			}
 			else {
 				request = new RestRequest("api/register", Method.POST);
-				JObject obj = JObject.Parse(response.Content);
+				StudentDto loaded = JsonConvert.DeserializeObject<StudentDto>(response.Content);
 				request.AddJsonBody(new {
-					StudentId = (int)obj["Id"],
+					StudentId = loaded.Id,
 					CourseSection = new {
 						SemesterTermId = 2, // hard-code Fall 2017
 						CatalogCourse = new {

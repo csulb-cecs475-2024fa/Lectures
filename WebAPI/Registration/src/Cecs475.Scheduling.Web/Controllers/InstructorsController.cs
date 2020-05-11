@@ -28,6 +28,7 @@ namespace Cecs475.Scheduling.Web.Controllers {
 
 		[HttpGet]
 		[Route("")]
+		// GET /api/instructors?username=neal&password=jfklsajdfl
 		public async Task<IEnumerable<InstructorDto>> GetInstructors() {
 			// Normally, calling Select on a DbSet will translate to a blocking (non-async) operation.
 			// Instead, we use ToListAsync and await the result to perform a non-blocking call to the database.
@@ -50,8 +51,13 @@ namespace Cecs475.Scheduling.Web.Controllers {
 
 		[HttpPost]
 		[Route("")]
+
+		// POST: /api/instructors?username=neal&password=jfklsajdfl
+
 		public async Task<InstructorDto> CreateInstructor([FromBody]InstructorDto instructor) {
-			// Make sure the name is unique.
+
+
+
 			var existing = await mContext.Instructors.SingleOrDefaultAsync(i => i.FirstName == instructor.FirstName
 				&& i.LastName == instructor.LastName);
 

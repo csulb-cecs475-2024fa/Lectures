@@ -79,7 +79,7 @@ namespace Cecs475.War {
 			else {
 				r = Kind.ToString(); // ToString on an enum returns the name given in code, e.g., "Jack", "Two", etc.
 			}
-			return r + " of " + Suit.ToString();
+			return $"{r} of {Suit}";
 		}
 
 		// Compare this card to another, to decide which wins the War game. 

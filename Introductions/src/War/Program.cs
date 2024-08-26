@@ -20,12 +20,14 @@ namespace Cecs475.War {
 
 			// Build a deck for player 1.
 			Deck d1 = new Deck();
-			// .NET uses formatted strings for output. {0} refers to the first parameter to the method, {1} to the next,
-			// etc. If a value is not a string, its ToString is called.
-			Console.WriteLine("Player 1's deck (debug): {0}", d1);
+
+			// An "interpolated string" starts with a $. In the string, {}
+			// surrounds an expression that will be evaluated and placed in the string
+			// at run time.
+			Console.WriteLine($"Player 1's deck (debug): {d1}");
 			d1.Shuffle();
 			Console.WriteLine();
-			Console.WriteLine("Player 1's deck shuffled: {0}", d1);
+			Console.WriteLine($"Player 1's deck shuffled: {d1}");
 
 			Deck d2 = new Deck();
 			d2.Shuffle();
@@ -41,16 +43,14 @@ namespace Cecs475.War {
 				string message = compare == 0 ? "Tie!" :
 					compare < 0 ? "Player 2 wins!" :
 					"Player 1 wins";
-				// An "interpolated string" starts with a $. In the string, {}
-				// surrounds an expression that will be evaluated and placed in the string
-				// at run time.
+
 				Console.WriteLine($"{c1} vs. {c2} ... {message}");
 
 				// Ask to go to next deal.
 				string again;
 				Console.WriteLine("Continue? y/n:");
 				again = Console.ReadLine();
-				if (again != "y") { // == and != work for strings! 
+				if (again != "y") {
 					break;
 				}
 				Console.WriteLine();

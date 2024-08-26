@@ -1,55 +1,77 @@
-﻿namespace Csulb.TargetGame {
-	// This game challenges the user to hit a target placed at a random distance away,
-	// by choosing an angle and gunpowder amount to use when firing a cannon.
-	// The game continues until the user hits the target within 1 meter.
-	internal class Program {
-		static void Main(string[] args) {
-			Console.WriteLine("Welcome to the Target Game!");
+﻿namespace Csulb.TargetGame;
 
-			double angle = 0;
-			double gunpowder = 0;
-			bool finished = false;
-			const double GUNPOWDER_TO_MPS = 10;
+// This game challenges the user to hit a target placed at a random distance away,
+// by choosing an angle and gunpowder amount to use when firing a cannon.
+// The game continues until the user hits the target within 1 meter.
+internal class Program {
+	static void Main(string[] args) {
+		int targetDistance;
+		Random rngesus = new Random();
+		const int MAX_DISTANCE = 1000;
 
-			Random random = new Random();
-			int targetDistance = random.Next(100, 1000);
-			
-			Console.WriteLine($"The target is {targetDistance}m away.");
+		Console.WriteLine("Welcome to target practice!");
 
-			do {
-				Console.WriteLine();
-				Console.Write("What angle will you shoot your cannon? [0-90.0 degrees] ");
-				angle = Convert.ToDouble(Console.ReadLine()) * Math.PI / 180;
+		// Choose a random target distance as an integer from 0 to 1000, inclusive.
+		targetDistance = rngesus.Next(MAX_DISTANCE + 1);
 
-				Console.Write("How much gunpowder? [0 or more kg] ");
-				gunpowder = Convert.ToDouble(Console.ReadLine());
+		Console.WriteLine("You are trying to hit a target that is " + targetDistance
+			+ "m away.");
+		bool hitTarget = false;
+		while (!hitTarget) {
+			double angle = GetAngle();
+			double gunpowder = GetGunpowder();
 
-				// Compute the distance travelled by the cannonball. 
-				double velocity = GUNPOWDER_TO_MPS * gunpowder;
-				double velocityY = velocity * Math.Sin(angle);
-				double velocityX = velocity * Math.Cos(angle);
-
-				// Without air resistance, and assuming the cannon is fired from the ground,
-				// the time to the apex of the arc is the vertical velocity divided by vertical acceleration.
-				double timeToApex = velocityY / 9.8;
-				// The time from the apex to the ground is the same as from ground to apex, so the total
-				// time of flight is 2 * time to apex.
-				double timeOfFlight = 2 * timeToApex;
-				// The total distance travelled horizontally is the horizontal velocity times the time of flight.
-				double horizontalDistance = timeOfFlight * velocityX;
-				double diff = horizontalDistance - targetDistance;
-
-				if (diff < 1 && diff > -1) {
-					Console.WriteLine("You hit the target!");
-					finished = true;
-				}
-				else if (diff > 0) {
-					Console.WriteLine($"Your shot landed {diff:F2}m past the target.");
-				}
-				else {
-					Console.WriteLine($"Your shot landed {-diff:F2}m short of the target.");
-				}
-			} while (!finished);
+			double distanceTraveled = DistanceTraveled(angle, gunpowder);
+			double missedBy = Math.Abs(distanceTraveled - targetDistance);
+			if (missedBy <= 1.0) {
+				Console.WriteLine("You hit the target!");
+				hitTarget = true;
+			}
+			else if (distanceTraveled < targetDistance) {
+				Console.WriteLine("You were short by {0}m. Try again!", missedBy);
+			}
+			else {
+				Console.WriteLine($"You were long by {missedBy}m. Try again!");
+			}
 		}
+	}
+
+	public static double GetAngle() {
+		double angle = -1;
+		while (angle < 0 || angle > 90) {
+			Console.Write("Enter an angle of elevation for the cannon, "
+				+ "from 0 to 90 degrees: ");
+			string? input = Console.ReadLine();
+			if (input is null) {
+				throw new Exception("No value read from console stream.");
+			}
+			angle = double.Parse(input);
+		}
+		return angle;
+	}
+
+	public static double GetGunpowder() {
+		double gunpowder = -1;
+		while (gunpowder < 0) {
+			Console.Write("Enter an amount of gunpowder to use, in kilograms: ");
+			string? input = Console.ReadLine();
+			if (input is null) {
+				throw new Exception("No value read from console stream.");
+			}
+			gunpowder = double.Parse(input);
+		}
+		return gunpowder;
+	}
+
+	public static double DistanceTraveled(double angle, double gunpowder) {
+		// Each kg of gunpowder creates 30 meters per second of velocity.
+		const double GUNPOWDER_MPS = 30;
+		const double GRAVITY = 9.81;
+
+		double velocity = gunpowder * GUNPOWDER_MPS;
+		double radians = angle * Math.PI / 180;
+
+		// From physics: distance = v^2 * sin(2*theta) / G.
+		return velocity * velocity * Math.Sin(2 * radians) / GRAVITY;
 	}
 }

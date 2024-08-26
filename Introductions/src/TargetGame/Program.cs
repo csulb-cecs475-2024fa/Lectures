@@ -14,8 +14,7 @@ internal class Program {
 		// Choose a random target distance as an integer from 0 to 1000, inclusive.
 		targetDistance = rngesus.Next(MAX_DISTANCE + 1);
 
-		Console.WriteLine("You are trying to hit a target that is " + targetDistance
-			+ "m away.");
+		Console.WriteLine($"You are trying to hit a target that is {targetDistance}m away.");
 		bool hitTarget = false;
 		while (!hitTarget) {
 			double angle = GetAngle();
@@ -28,7 +27,7 @@ internal class Program {
 				hitTarget = true;
 			}
 			else if (distanceTraveled < targetDistance) {
-				Console.WriteLine("You were short by {0}m. Try again!", missedBy);
+				Console.WriteLine($"You were short by {missedBy}m. Try again!");
 			}
 			else {
 				Console.WriteLine($"You were long by {missedBy}m. Try again!");
@@ -39,8 +38,7 @@ internal class Program {
 	public static double GetAngle() {
 		double angle = -1;
 		while (angle < 0 || angle > 90) {
-			Console.Write("Enter an angle of elevation for the cannon, "
-				+ "from 0 to 90 degrees: ");
+			Console.Write("Enter an angle of elevation for the cannon, from 0 to 90 degrees: ");
 			string? input = Console.ReadLine();
 			if (input is null) {
 				throw new Exception("No value read from console stream.");

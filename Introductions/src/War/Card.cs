@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 
 // A namespace is a logical grouping of types under one name. A namespace is added to a type's name to create its
-// Fully Qualified Name. Namespaces are similar to Java packages, except Java packages define a physical on-disk
+// Fully Qualified Name. Namespaces are similar to Python modules, except Python modules define a physical on-disk
 // grouping in addition to a logical grouping.
 namespace Cecs475.War {
-	// A class defines a new reference type. Like Java, all classes inherit from a base Object type. In .NET, a
-	// reference type uses reference semantics for assignment and copying. All classes in Java are reference types,
-	// but .NET (and thus C#) give us the option of declaring non-reference types, which we will see later.
+	// A class defines a new reference type. In .NET, a reference type uses reference semantics for assignment and
+	// copying. (More on this later.) .NET (and thus C#) give us the option of declaring non-reference types, which
+	// we will also see later.
 
 	// A comment like the one below is a documentation comment.
 	/// <summary>
 	/// Represents a single card in a 52-card deck of playing cards.
 	/// </summary>
 	public class Card : IComparable<Card> {
+		// : IComparable<Card> states that the Card class implements an *interface* called IComparable<Card>.
+		// We will talk about interfaces later; for now, this communicates to other programmers that Card objects
+		// can be compared to other Card objects to see which is "larger".
+
 		// An enum is a new type whose values can only be taken from the names in the enum declaration. Each value
 		// in the enum is secretly an integer counting up from 0.
 		// Because this type is declared inside Card, other types will have to use the name "Card.Suit"
@@ -67,7 +71,7 @@ namespace Cecs475.War {
 			this.Kind = kind;
 		}
 
-		// As in Java, the Object class defines a method ToString for creating a string representation of an object.
+		// Every class can define a method ToString for creating a string representation of an object.
 		// The override keyword is mandatory and indicates we are changing the behavior of a method defined in a base
 		// class.
 		public override string ToString() {
@@ -83,8 +87,11 @@ namespace Cecs475.War {
 		}
 
 		// Compare this card to another, to decide which wins the War game. 
-		public int CompareTo(Card other) {
-			// compare the cards based on the integer value of their Kind.
+		public int CompareTo(Card? other) {
+			// It doesn't make sense to compare a Card to null, so we throw an exception if asked to.
+			ArgumentNullException.ThrowIfNull(other);
+
+			// Compare the cards based on the integer value of their Kind.
 			return this.Kind.CompareTo(other.Kind);
 		}
 	}

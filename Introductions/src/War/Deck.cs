@@ -69,7 +69,9 @@ namespace Cecs475.War {
 		/// </summary>
 		/// <returns>the top card of the deck</returns>
 		public Card DealOne() {
-			return mCards[--Count];
+			// If Count is 52, we want to return array index 51, and end with a Count of 51.
+			Count--;
+			return mCards[Count];
 		}
 
 		// Return a string of all the cards in the deck, from top to bottom.

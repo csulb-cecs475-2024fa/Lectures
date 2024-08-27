@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <AssemblyName>War</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <PackageId>War</PackageId>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <RootNamespace>Cecs475.War</RootNamespace>
-    <StartupObject>Cecs475.War.Program</StartupObject>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>War</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<PackageId>War</PackageId>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<RootNamespace>Cecs475.War</RootNamespace>
+		<Nullable>enable</Nullable>
+		<StartupObject>Cecs475.War.Program</StartupObject>
+	</PropertyGroup>
 
 </Project>

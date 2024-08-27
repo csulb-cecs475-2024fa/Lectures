@@ -11,9 +11,6 @@ namespace Cecs475.War {
 		// const values are automatically static, and cannot be changed.
 		private const int NEW_DECK_SIZE = 52;
 
-		// I will explain this later.
-		private static Random mRng = new Random();
-
 		// We have several choices of how to represent a deck of cards. We'll go with the simplest: an array of Card
 		// objects, and a count of how many cards are still in the deck.
 		private Card[] mCards;
@@ -50,14 +47,22 @@ namespace Cecs475.War {
 		/// <summary>
 		/// Performs a randomized shuffle of whichever cards are still in the deck.
 		/// </summary>
-		public void Shuffle() {
-			// We use a static Random generator because the Random constructor uses a time-based seed, and if two decks are
-			// shuffled within some small time frame, they will end up the same if they both construct a new Random 
-			// instance. Using a shared static instance means this won't happen.
+		/// <param name="generator">A Random object to use when shuffling the deck.</param>
+		public void Shuffle(Random generator) {
+			// We could construct a Random object in this method, but that makes our code less testable.
+			// We can't predict the outcome of Shuffle() when it makes its own Random object, because we can't
+			// control the random sequence that results. 
+
+			// We say the Shuffle method has a DEPENDENCY on a source of randomness. In good software, dependencies
+			// are *inverted*: the code with the dependency does not construct that dependency itself; the dependency
+			// is passed in as a parameter or otherwise made available to the code.
+
+			// So here, instead of making a Random object ourselves (a hard-coded dependency), we require
+			// the caller of this method to provide the Random object. (an inverted dependency)
 
 			// Perform a Fisher-Yates shuffle.
 			for (int i = Count - 1; i > 0; i--) {
-				int j = mRng.Next(i + 1);
+				int j = generator.Next(i + 1);
 				Card temp = mCards[j];
 				mCards[j] = mCards[i];
 				mCards[i] = temp;

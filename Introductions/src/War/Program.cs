@@ -34,20 +34,27 @@ namespace Cecs475.War {
 			
 			// This class has access to any class in the same project, or in a library that has been imported.
 
-			// Build a deck for player 1.
+			// Build a deck for player 1 and 2.
 			Deck d1 = new Deck();
+			Deck d2 = new Deck();
+
+			// We need a source of random numbers in order to shuffle the decks.
+			Random generator = new Random();
 
 			// Some debugging output.
 			Console.WriteLine($"Player 1's deck (debug): {d1}");
-			d1.Shuffle();
+			
+			// Shuffle the decks.
+			d1.Shuffle(generator);
+			d2.Shuffle(generator);
+
+			// More debugging output.
 			Console.WriteLine();
 			Console.WriteLine($"Player 1's deck shuffled: {d1}");
 
-			Deck d2 = new Deck();
-			d2.Shuffle();
-
 			// Keep track of player wins.
 			int playerOneWins = 0, playerTwoWins = 0;
+
 
 			Console.WriteLine();
 			Console.WriteLine("Let's play WAR!");

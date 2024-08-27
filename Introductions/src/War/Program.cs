@@ -55,7 +55,6 @@ namespace Cecs475.War {
 			// Keep track of player wins.
 			int playerOneWins = 0, playerTwoWins = 0;
 
-
 			Console.WriteLine();
 			Console.WriteLine("Let's play WAR!");
 			while (d1.Count > 0) { // calls the Count property accessor

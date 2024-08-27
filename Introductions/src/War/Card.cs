@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 // A namespace is a logical grouping of types under one name. A namespace is added to a type's name to create its
 // Fully Qualified Name. Namespaces are similar to Python modules, except Python modules define a physical on-disk
@@ -13,6 +12,9 @@ namespace Cecs475.War {
 	/// <summary>
 	/// Represents a single card in a 52-card deck of playing cards.
 	/// </summary>
+	// This class could be used by other programmers; it represents a generic card, not something internally specific
+	// to this one application. "public" allows code from anywhere else in .NET to use this class as long as they have
+	// access to its compiled output.
 	public class Card : IComparable<Card> {
 		// : IComparable<Card> states that the Card class implements an *interface* called IComparable<Card>.
 		// We will talk about interfaces later; for now, this communicates to other programmers that Card objects
@@ -21,6 +23,7 @@ namespace Cecs475.War {
 		// An enum is a new type whose values can only be taken from the names in the enum declaration. Each value
 		// in the enum is secretly an integer counting up from 0.
 		// Because this type is declared inside Card, other types will have to use the name "Card.Suit"
+		// "public" here means that anyone can reference this declaration.
 		public enum CardSuit {
 			Spades, // 0
 			Clubs,  // 1, etc.
@@ -58,12 +61,15 @@ namespace Cecs475.War {
 		// This is called an "auto property". We specify that the public can get and set the value of
 		// the Suit property. Later we will expand these get/set statements; for now, they declare
 		// a CardSuit field that can be read and written by the public.
+		// This property is public, because it represents something that must be known by other code
+		// about Card objects.
 
 		// More compactly, and prettier:
 		public CardKind Kind { get; set; }
 
 
-		// Constructor
+		// Constructor. This method defines what must be known to create an object of the Card class.
+		// Any parameters to this method must be provided when constructing a Card.
 		public Card(CardKind kind, CardSuit suit) {
 			// Since Suit and Kind are properties with setters, we can assign to them as if they
 			// are fields.

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68F4B400-02BA-460F-9F01-C71ACD6EFF2E}"
 EndProject
@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{38F8D107-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{660FDC60-B2E3-4AA0-B9AB-83E2BE71AE6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Othello.Game", "src\Othello.Game\Othello.Game.csproj", "{29031587-6543-4B65-A24F-FE80CF7F28F5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Othello.App", "src\Othello.App\Othello.App.csproj", "{A780F741-CFE8-4069-8455-B2D9B3FF3D23}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Othello.Test", "test\Othello.Test\Othello.Test.csproj", "{963C1C1A-06DD-4CCA-846E-73A8FB3B6768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.Model", "src\Othello.Model\Othello.Model.csproj", "{EDC97E94-98FD-4801-8449-EDBD7F2C741C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29031587-6543-4B65-A24F-FE80CF7F28F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29031587-6543-4B65-A24F-FE80CF7F28F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29031587-6543-4B65-A24F-FE80CF7F28F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29031587-6543-4B65-A24F-FE80CF7F28F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A780F741-CFE8-4069-8455-B2D9B3FF3D23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A780F741-CFE8-4069-8455-B2D9B3FF3D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A780F741-CFE8-4069-8455-B2D9B3FF3D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,14 +29,18 @@ Global
 		{963C1C1A-06DD-4CCA-846E-73A8FB3B6768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{963C1C1A-06DD-4CCA-846E-73A8FB3B6768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{963C1C1A-06DD-4CCA-846E-73A8FB3B6768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC97E94-98FD-4801-8449-EDBD7F2C741C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC97E94-98FD-4801-8449-EDBD7F2C741C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC97E94-98FD-4801-8449-EDBD7F2C741C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC97E94-98FD-4801-8449-EDBD7F2C741C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{29031587-6543-4B65-A24F-FE80CF7F28F5} = {68F4B400-02BA-460F-9F01-C71ACD6EFF2E}
 		{A780F741-CFE8-4069-8455-B2D9B3FF3D23} = {68F4B400-02BA-460F-9F01-C71ACD6EFF2E}
 		{963C1C1A-06DD-4CCA-846E-73A8FB3B6768} = {38F8D107-3712-42BF-B056-23A43399476D}
+		{EDC97E94-98FD-4801-8449-EDBD7F2C741C} = {68F4B400-02BA-460F-9F01-C71ACD6EFF2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8A26A385-B439-4BAA-84BC-AD9339C5D4E8}

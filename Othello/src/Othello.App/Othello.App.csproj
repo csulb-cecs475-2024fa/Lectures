@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>Othello.App</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <PackageId>Othello.App</PackageId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>Othello.App</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<PackageId>Othello.App</PackageId>
+		<StartupObject>Othello.App.Game</StartupObject>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Othello.Game\Othello.Game.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Othello.Model\Othello.Model.csproj" />
+	</ItemGroup>
 
 </Project>

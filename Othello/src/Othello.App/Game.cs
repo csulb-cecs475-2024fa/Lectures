@@ -1,41 +1,44 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Othello.Game;
 
 namespace Othello.App
 {
 	/// <summary>
-	/// This is the controller class of our simple MVC design. All user interaction is done here, driving the View and 
-	/// Model classes in response to user input.
+	/// The View and Controller class for our Othello game.
 	/// </summary>
 	public class Game {
 		static void Main(string[] args) {
 			// The model and view for the game.
 			OthelloBoard board = new OthelloBoard();
-			OthelloView view = new OthelloView();
 
 			while (!board.IsFinished) {
 				// Print the view.
 				Console.WriteLine();
 				Console.WriteLine();
-				view.PrintView(Console.Out, board);
+				PrintBoard(board);
 				Console.WriteLine();
 				Console.WriteLine();
 
 				// Print the possible moves.
 				var possMoves = board.GetPossibleMoves();
 				Console.WriteLine("Possible moves:");
-				Console.WriteLine(String.Join(", ", possMoves));
+				Console.WriteLine(string.Join(", ", possMoves));
 
 				// Print the turn indication.
 				Console.WriteLine();
-				Console.Write("{0}'s turn: ", view.GetPlayerString(board.CurrentPlayer));
+				Console.Write($"{GetPlayerString(board.CurrentPlayer)}'s turn: ");
 
 				// Parse user input and apply their command.
-				string input = Console.ReadLine();
+				string? input = Console.ReadLine();
+				if (input is null) {
+					throw new Exception("Expected input from console");
+				}
+
 				if (input.StartsWith("move ")) {
 					// Parse the move and validate that it is one of the possible moves before applying it.
-					OthelloMove move = view.ParseMove(input.Substring(5));
+					BoardPosition move = ParseMove(input[5..]);
 					bool foundMove = false;
 					foreach (var poss in possMoves) {
 						if (poss.Equals(move)) {
@@ -50,7 +53,7 @@ namespace Othello.App
 				}
 				else if (input.StartsWith("undo ")) {
 					// Parse the number of moves to undo and repeatedly undo one move.
-					int undoCount = Convert.ToInt32(input.Substring(5));
+					int undoCount = Convert.ToInt32(input[5..]);
 					while (undoCount > 0 && board.MoveHistory.Count > 0) {
 						board.UndoLastMove();
 						undoCount--;
@@ -59,19 +62,47 @@ namespace Othello.App
 				else if (input == "showHistory") {
 					// Show the move history in reverse order.
 					Console.WriteLine("History:");
-					bool playerIsBlack = board.CurrentPlayer != 1; 
-					// if board.CurrentPlayer == 1, then black is CURRENT player, not the most recent player.
-
 					foreach (var move in board.MoveHistory.Reverse()) {
-						Console.WriteLine("{0}: {1}", view.GetPlayerString(move.Player), move);
+						Console.WriteLine($"{move}");
 					}
 				}
 				else if (input == "showAdvantage") {
-					Console.WriteLine("Advantage: {0} in favor of {1}", 
-						board.CurrentAdvantage.Advantage, 
-						view.GetPlayerString(board.CurrentAdvantage.Player));
+					Console.WriteLine($"Advantage: {board.CurrentAdvantage.Advantage} " +
+						$"in favor of {GetPlayerString(board.CurrentAdvantage.Player)}");
 				}
+			}
+		}
 
+		public static BoardPosition ParseMove(string move) {
+			// Remove the () and split on the ,
+			string[] split = move.Trim(['(', ')']).Split(',');
+			return new BoardPosition(int.Parse(split[0]), int.Parse(split[1]));
+		}
+
+		/// <summary>
+		/// Gets a string representing the given player.
+		/// </summary>
+		public static string GetPlayerString(int player) {
+			return player == 1 ? "Black" : "White";
+		}
+
+		/// <summary>
+		/// Prints a text representation of an OthelloBoard to the console.
+		/// </summary>
+		public static void PrintBoard(OthelloBoard board) {
+			Console.WriteLine("- 0 1 2 3 4 5 6 7");
+			for (int i = 0; i < OthelloBoard.BOARD_SIZE; i++) {
+				Console.Write("{0} ", i);
+				for (int j = 0; j < OthelloBoard.BOARD_SIZE; j++) {
+					int space = board.GetPlayerAtPosition(new BoardPosition(i, j));
+					char label = space switch {
+						0 => '.',
+						1 => 'B',
+						_ => 'W'
+					};
+					Console.Write($"{label} ");
+				}
+				Console.WriteLine();
 			}
 		}
 	}

@@ -25,15 +25,15 @@ namespace Othello.Game {
 			Position = pos;
 		}
 
-		public override bool Equals(object obj) {
-			return Equals(obj as OthelloMove);
+		public override bool Equals(object? obj) {
+			return obj is OthelloMove m && Equals(m);
 		}
 
 		/// <summary>
 		/// Returns true if the two objects have the same position.
 		/// </summary>
-		public bool Equals(OthelloMove other) {
-			return other != null && Position.Equals(other.Position);
+		public bool Equals(OthelloMove? other) {
+			return other is not null && Position.Equals(other.Position);
 		}
 		
 		/// <summary>

@@ -104,13 +104,11 @@ namespace Othello.Game {
 		/// </summary>
 		public int GetPlayerAtPosition(BoardPosition boardPosition) {
 			sbyte pos = mBoard[boardPosition.Row + 1, boardPosition.Col + 1];
-			if (pos == -1) { // -1 maps to player 2.
-				return 2;
-			}
-			if (pos == 8) { // out of bounds
-				return -1;
-			}
-			return pos; // otherwise the value is correct
+			return pos switch {
+				-1 => 2, // -1 maps to player 2.
+				8 => -1, // out of bounds
+				_ => pos // otherwise the value is correct
+			};
 		}
 
 		public void ApplyMove(BoardPosition p) {
@@ -191,7 +189,6 @@ namespace Othello.Game {
 						break;
 					}
 				}
-				// If the current position is valid, yield a move at the position.
 			}
 
 			// If no positions were valid, return a "pass" move.
@@ -208,13 +205,12 @@ namespace Othello.Game {
 		public void UndoLastMove() {
 			BoardPosition m = mMoveHistory[^1];
 
-			// Note: there is a bug in this code.
 			if (m.Row != -1 || m.Col != -1) {
 				// Reset the board at the move's position.
 				SetPlayerAtPosition(m, 0);
 
 				// Iterate through the move's recorded flipsets.
-				foreach (var flipSet in mFlipSets.Last()) {
+				foreach (var flipSet in mFlipSets[^1]) {
 					BoardPosition pos = m;
 					// For each flipset, walk along the flipset's direction resetting pieces.
 					for (int i = 0; i < flipSet.Count; i++) {

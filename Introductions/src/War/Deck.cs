@@ -86,5 +86,18 @@ namespace Cecs475.War {
 			// Take(n): returns only the first n elements of a sequence.
 			return string.Join(", ", mCards.Take(Count).Reverse());
 		}
+
+		// This is a poorly designed shuffle method. The algorithm is correct, but it hard-codes a *dependency*
+		// -- the Random object used for random numbers. 
+		public void ShuffleBadDesign() {
+			Random generator = new Random();
+			// Perform a Fisher-Yates shuffle.
+			for (int i = Count - 1; i > 0; i--) {
+				int j = generator.Next(i + 1);
+				Card temp = mCards[j];
+				mCards[j] = mCards[i];
+				mCards[i] = temp;
+			}
+		}
 	}
 }

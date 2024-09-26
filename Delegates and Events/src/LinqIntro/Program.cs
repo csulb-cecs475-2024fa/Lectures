@@ -22,7 +22,7 @@ namespace LinqIntro {
 			 * methods as long as you are using System.Linq. We'll look at some now.
 			 */
 
-			int[] numbers = new int[] { 8, -6, -7, 5, 3, 0, -9 };
+			int[] numbers = [8, -6, -7, 5, 3, 0, -9];
 			Console.WriteLine(string.Join(", ", numbers));
 			// LINQ has two key functions: Select and Where
 

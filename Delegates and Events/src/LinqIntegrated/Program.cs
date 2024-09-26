@@ -12,10 +12,10 @@ namespace LinqIntegrated {
 			private long mEarnings; // I'll explain this later...
 			private string mProductionCompany;
 
-			public string Title { get; set; }
-			public int Year { get; set; }
-			public long Budget { get; set; }
-			public int RunningTime { get; set; }
+			public string Title { get; init; }
+			public int Year { get; init; }
+			public long Budget { get; init; } = 0;
+			public int RunningTime { get; init; } = 0;
 			public string ProductionCompany {
 				get {
 					Console.WriteLine($"Accessing ProductionCompany for {Title}");
@@ -39,18 +39,18 @@ namespace LinqIntegrated {
 		public static void Main(string[] args) {
 
 			// Given a collection of values...
-			Movie[] movies = new Movie[] {
-				new Movie() {Title = "Wall-E", Year = 2008, ProductionCompany = "Pixar Animation Studios", Budget = 180000000,
+			Movie[] movies = [
+				new() {Title = "Wall-E", Year = 2008, ProductionCompany = "Pixar Animation Studios", Budget = 180000000,
 					Earnings = 521300000, RunningTime = 98 }, // WARNING new syntax
-				new Movie() {Title = "Finding Nemo", Year = 2003, ProductionCompany = "Pixar Animation Studios", Budget = 94000000,
+				new() {Title = "Finding Nemo", Year = 2003, ProductionCompany = "Pixar Animation Studios", Budget = 94000000,
 					Earnings = 936700000, RunningTime = 100 },
-				new Movie() {Title = "The Lion King", Year = 1994, ProductionCompany = "Walt Disney Feature Animation", Budget = 45000000,
+				new() {Title = "The Lion King", Year = 1994, ProductionCompany = "Walt Disney Feature Animation", Budget = 45000000,
 					Earnings = 987500000, RunningTime = 98 },
-				new Movie() {Title = "Finding Dory", Year = 2016, ProductionCompany = "Pixar Animation Studios", Budget = 200000000,
+				new() {Title = "Finding Dory", Year = 2016, ProductionCompany = "Pixar Animation Studios", Budget = 200000000,
 					Earnings = 1028000000, RunningTime = 97 },
-				new Movie() {Title = "The Empire Strikes Back", Year = 1980, ProductionCompany = "Lucasfilm Ltd.", Budget = 33000000,
+				new() {Title = "The Empire Strikes Back", Year = 1980, ProductionCompany = "Lucasfilm Ltd.", Budget = 33000000,
 					Earnings = 538400000, RunningTime = 124 },
-			};
+			];
 
 
 			Console.WriteLine("Finding onlyPixarMovies \n");

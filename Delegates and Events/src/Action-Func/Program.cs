@@ -4,23 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Action_Func {
-	/* Delegates are great, but their implementation in C# 1.0 was annoying.
-	 * Every time you wanted to take a function as a parameter, you had to 
-	 * declare a new delegate type.
+	/* A "delegate" gives a name to a particular "type" of function.
+	 * The delegate statement declares a new type you can use; variables of the delegate type
+	 * can be assigned *FUNCTIONS* that match the delegate's requirements.
 	 */
 	public delegate void PrintAnIntFunction(int param);
+	// This delegate type is named "PrintAnIntFunction". Any variable declared of this type
+	// can be assigned to any function that takes an integer parameter and has no return value.
 
 	public class Program {
+		// This function takes an integer parameter and has no return value.
 		public static void PrintInt(int p) {
 			Console.WriteLine(p);
 		}
 
 		public static void Main(string[] args) {
+			// Declare variable p equal to the PrintInt function.
 			PrintAnIntFunction p = PrintInt;
+
+			// The most important thing we can do with a delegate variable is call the function
+			// it points to.
 			p(10);
 
-			/* But that's tedious and creates way too many names. C# 3.5 introduced the
-			 * Action<T> and Func<T> delegate types.
+			/* Giving a new name to every pattern of function in every context you might need one
+			 * is very tedious. C# 3.5 introduced the Action<T> and Func<T> delegate types.
+			 * 
 			 * Action<T> is a pointer to a void function taking a parameter of type T.
 			 * Action<T1, T2, ...Tn> is a void function taking params of types T1, T2, etc.
 			 * 
@@ -28,7 +36,6 @@ namespace Action_Func {
 			 *			of type TResult. 
 			 *	Func<T1, T2, ..., TResult> likewise.
 			 */
-
 			Action<int> p2 = PrintInt;
 			p2(100);
 
@@ -39,10 +46,19 @@ namespace Action_Func {
 
 			// So now we can do:
 			Func<int, int, double> f = NthPower;
-			Console.WriteLine($"{f(5, 3)}");
+			Console.WriteLine($"{f(5, 3)}"); // what is the output?
+
+
+			Console.WriteLine("Choose an option:");
+			Console.WriteLine("1) Pow\n2) Root\n3) Product");
+			int choice = int.Parse(Console.ReadLine());
+			f = choice switch {
+				1 => NthPower,
+				2 => NthRoot,
+				_ => Product
+			};
+			Console.WriteLine($"{f(5, 3)}"); // what is the output?
 		}
-
-
 
 		public static double NthPower(int first, int second) {
 			return Math.Pow(first, second);

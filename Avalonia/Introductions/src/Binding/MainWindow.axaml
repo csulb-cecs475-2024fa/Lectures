@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:me="using:Cecs475.Avalonia.Binding"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="Binding.MainWindow"
+		Title="Binding">
+	<StackPanel>
+		<Label>One-time Binding Demo</Label>
+		<StackPanel HorizontalAlignment="Left">
+			<WrapPanel>
+				<Label>Age:</Label>
+				<TextBox x:Name="mAgeText" VerticalAlignment="Center" Text="{Binding Age, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+			</WrapPanel>
+			<WrapPanel>
+				<Label>Salary:</Label>
+				<Label x:Name="mSalaryLabel" Content="{Binding Salary, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+			</WrapPanel>
+			<Button Click="Button_Click">Set Age to 100</Button>
+		</StackPanel>
+		<Label>Two-way Binding Demo</Label>
+		<StackPanel HorizontalAlignment="Left">
+			<WrapPanel>
+				<Label>Age:</Label>
+				<TextBox x:Name="mAge2Text" VerticalAlignment="Center" Text="{Binding Age, Mode=TwoWay, DataType={x:Type me:NotifyingEmployee}}"/>
+				<!-- TwoWay is the default -->
+			</WrapPanel>
+			<WrapPanel>
+				<Label>Salary:</Label>
+				<Label x:Name="mSalary2Label" Content="{Binding Salary, DataType={x:Type me:NotifyingEmployee}}"/>
+			</WrapPanel>
+			<Button Click="Button2_Click">Set Age to 100</Button>
+		</StackPanel>
+		<StackPanel>
+			<Label>Shopping List:</Label>
+			<WrapPanel>
+				<Label>Add:</Label>
+				<TextBox x:Name="mAddText" Width="200" VerticalAlignment="Center">Item</TextBox>
+				<Button x:Name="mAddBtn" Click="mAddBtn_Click">Add</Button>
+			</WrapPanel>
+			<ListBox x:Name="mList" Height="300"/>
+		</StackPanel>
+	</StackPanel>
+</Window>

@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Layouts.MainWindow"
+        Title="Layouts">
+	<StackPanel>
+		<StackPanel.Resources>
+			<!--<Style TargetType="{x:Type Button}">
+				<Setter Property="Margin" Value="0,2,0,0"/>
+			</Style>-->
+		</StackPanel.Resources>
+		<Label>Choose a layout to demo:</Label>
+		<Button x:Name="mWrapBtn" Click="mWrapBtn_Click">Wrap Panel</Button>
+		<Button x:Name="mDockBtn" Click="mDockBtn_Click">Dock Panel</Button>
+		<Button x:Name="mStackBtn" Click="mStackBtn_Click">Stack Panel</Button>
+		<Button x:Name="mGridBtn" Click="mGridBtn_Click">Grid Layout</Button>
+	</StackPanel>
+</Window>

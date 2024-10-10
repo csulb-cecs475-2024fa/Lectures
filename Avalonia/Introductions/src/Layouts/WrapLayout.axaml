@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Layouts.WrapLayout"
+        Title="WrapLayout">
+	<WrapPanel Orientation="Horizontal">
+		<Label Background="Gray">This label auto-sizes itself.</Label>
+		<Label Background="White">This label will start next to the other label, if it fits.</Label>
+		<Label Background="Coral">If it doesn't fit, it wraps to the next line.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Coral">Example.</Label>
+		<Label Background="Red">Example.</Label>
+	</WrapPanel>
+</Window>

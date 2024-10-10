@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Xaml.MainWindow"
+        Title="Xaml Demo"
+		Background="DarkGray">
+	<!-- Does this syntax remind you of any other languages? -->
+
+	<!--
+	Each <...> in XAML is called an "element". The nesting of elements inside other elements
+	forms an element tree. 
+	
+	-->
+	<Button Width="100">Hello, world!</Button>
+	<!--
+	This button is a child element of the Window element. 
+	Even the text inside the <Button> tags is another element, whose parent is the Button.
+	
+	The "Width" part of <Button> is an "attribute", like a Property of a C# class.
+	There are lots of useful attributes on XAML elements, like Background.
+	-->
+
+	<!--
+	The Button declaration above is compiled silently into C# code:
+	Button b = new Button();
+	b.Content = "Hello, world!";
+	b.Width = 100;
+	-->
+
+	<!--
+	Sometimes an attribute can't be set with a simple string value. A "parent attribute" syntax
+	lets us declare a child element that actually sets a property of its parent, by constructing
+	a complex object to assign to that property.
+	
+	The "Background" property can be assigned a simple color string, OR a more complex
+	pattern like a "brush" that paints a color gradient.
+	-->
+	<!--
+	<Button Width="100">
+		<Button.Background>
+			<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+				<GradientStop Color="Red" />
+				<GradientStop Color="Green" Offset="1.0"/>
+			</LinearGradientBrush>
+		</Button.Background>
+		Hello, world!
+	</Button>
+	
+	Which compiles as:
+	Button b = new Button();
+	b.Content = "Hello, world!";
+	b.Width = 100;
+	
+	LinearGradientBrush brush = new LinearGradientBrush();
+	brush.StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative);
+	brush.EndPoint = new RelativePoint(100, 100, RelativeUnit.Relative);
+	brush.GradientStops.Add(new GradientStop(Colors.LimeGreen, 0.0));
+	brush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+	b.Background = brush;
+	-->
+	
+</Window>

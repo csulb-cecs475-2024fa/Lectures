@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CommonControls.MainWindow"
+        Title="CommonControls">
+	<StackPanel Orientation="Vertical">
+		<Label>A label is for static text.</Label>
+		<Button Foreground="Blue" Background="Black">We've already seen buttons</Button>
+		<TextBox>A text box can be edited by the user</TextBox>
+		<RadioButton>Only one radio button can be selected</RadioButton>
+		<RadioButton>Option 2</RadioButton>
+		<RadioButton>Option 3</RadioButton>
+		<CheckBox>Check boxes can be toggled on and off</CheckBox>
+		<Label>A ComboBox is a drop-down list, where each option is itself a XAML element.</Label>
+		<ComboBox SelectedIndex="0">
+			<ComboBoxItem>Option 1</ComboBoxItem>
+			<ComboBoxItem>
+				<Label>
+					<Label.Background>
+						<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+							<GradientStop Color="Red" />
+							<GradientStop Color="Green" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Label.Background>
+					Option 2
+				</Label>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<CheckBox>Option 3</CheckBox>
+			</ComboBoxItem>
+		</ComboBox>
+		<Label>A list box displays all its elements to be selected from:</Label>
+		<ListBox SelectionMode="Multiple" BorderBrush="Green" BorderThickness="1.0">
+			<ListBoxItem IsSelected="true">One</ListBoxItem>
+			<ListBoxItem>Two</ListBoxItem>
+			<ListBoxItem IsSelected="true">Three</ListBoxItem>
+			<ListBoxItem>Four</ListBoxItem>
+			<ListBoxItem>Five</ListBoxItem>
+		</ListBox>
+	</StackPanel>
+</Window>

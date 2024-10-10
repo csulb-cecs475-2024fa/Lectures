@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Layouts.DockLayout"
+        Title="DockLayout">
+	<DockPanel>
+		<TextBox DockPanel.Dock="Top">Dock = "Top"</TextBox>
+		<TextBox DockPanel.Dock="Bottom">Dock = "Bottom"</TextBox>
+		<TextBox DockPanel.Dock="Left">Dock = "Left"</TextBox>
+		<TextBox>This TextBox "fills" the remaining space.</TextBox>
+	</DockPanel>
+</Window>

@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\10_of_clubs.png" />
+    <None Remove="Resources\10_of_diamonds.png" />
+    <None Remove="Resources\10_of_hearts.png" />
+    <None Remove="Resources\10_of_spades.png" />
+    <None Remove="Resources\2_of_clubs.png" />
+    <None Remove="Resources\2_of_diamonds.png" />
+    <None Remove="Resources\2_of_hearts.png" />
+    <None Remove="Resources\2_of_spades.png" />
+    <None Remove="Resources\3_of_clubs.png" />
+    <None Remove="Resources\3_of_diamonds.png" />
+    <None Remove="Resources\3_of_hearts.png" />
+    <None Remove="Resources\3_of_spades.png" />
+    <None Remove="Resources\4_of_clubs.png" />
+    <None Remove="Resources\4_of_diamonds.png" />
+    <None Remove="Resources\4_of_hearts.png" />
+    <None Remove="Resources\4_of_spades.png" />
+    <None Remove="Resources\5_of_clubs.png" />
+    <None Remove="Resources\5_of_diamonds.png" />
+    <None Remove="Resources\5_of_hearts.png" />
+    <None Remove="Resources\5_of_spades.png" />
+    <None Remove="Resources\6_of_clubs.png" />
+    <None Remove="Resources\6_of_diamonds.png" />
+    <None Remove="Resources\6_of_hearts.png" />
+    <None Remove="Resources\6_of_spades.png" />
+    <None Remove="Resources\7_of_clubs.png" />
+    <None Remove="Resources\7_of_diamonds.png" />
+    <None Remove="Resources\7_of_hearts.png" />
+    <None Remove="Resources\7_of_spades.png" />
+    <None Remove="Resources\8_of_clubs.png" />
+    <None Remove="Resources\8_of_diamonds.png" />
+    <None Remove="Resources\8_of_hearts.png" />
+    <None Remove="Resources\8_of_spades.png" />
+    <None Remove="Resources\9_of_clubs.png" />
+    <None Remove="Resources\9_of_diamonds.png" />
+    <None Remove="Resources\9_of_hearts.png" />
+    <None Remove="Resources\9_of_spades.png" />
+    <None Remove="Resources\ace_of_clubs.png" />
+    <None Remove="Resources\ace_of_diamonds.png" />
+    <None Remove="Resources\ace_of_hearts.png" />
+    <None Remove="Resources\ace_of_spades.png" />
+    <None Remove="Resources\back%402x.png" />
+    <None Remove="Resources\back.png" />
+    <None Remove="Resources\black_joker.png" />
+    <None Remove="Resources\jack_of_clubs.png" />
+    <None Remove="Resources\jack_of_diamonds.png" />
+    <None Remove="Resources\jack_of_hearts.png" />
+    <None Remove="Resources\jack_of_spades.png" />
+    <None Remove="Resources\king_of_clubs.png" />
+    <None Remove="Resources\king_of_diamonds.png" />
+    <None Remove="Resources\king_of_hearts.png" />
+    <None Remove="Resources\king_of_spades.png" />
+    <None Remove="Resources\queen_of_clubs.png" />
+    <None Remove="Resources\queen_of_diamonds.png" />
+    <None Remove="Resources\queen_of_hearts.png" />
+    <None Remove="Resources\queen_of_spades.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Resources\10_of_clubs.png" />
+    <AvaloniaResource Include="Resources\10_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\10_of_hearts.png" />
+    <AvaloniaResource Include="Resources\10_of_spades.png" />
+    <AvaloniaResource Include="Resources\2_of_clubs.png" />
+    <AvaloniaResource Include="Resources\2_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\2_of_hearts.png" />
+    <AvaloniaResource Include="Resources\2_of_spades.png" />
+    <AvaloniaResource Include="Resources\3_of_clubs.png" />
+    <AvaloniaResource Include="Resources\3_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\3_of_hearts.png" />
+    <AvaloniaResource Include="Resources\3_of_spades.png" />
+    <AvaloniaResource Include="Resources\4_of_clubs.png" />
+    <AvaloniaResource Include="Resources\4_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\4_of_hearts.png" />
+    <AvaloniaResource Include="Resources\4_of_spades.png" />
+    <AvaloniaResource Include="Resources\5_of_clubs.png" />
+    <AvaloniaResource Include="Resources\5_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\5_of_hearts.png" />
+    <AvaloniaResource Include="Resources\5_of_spades.png" />
+    <AvaloniaResource Include="Resources\6_of_clubs.png" />
+    <AvaloniaResource Include="Resources\6_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\6_of_hearts.png" />
+    <AvaloniaResource Include="Resources\6_of_spades.png" />
+    <AvaloniaResource Include="Resources\7_of_clubs.png" />
+    <AvaloniaResource Include="Resources\7_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\7_of_hearts.png" />
+    <AvaloniaResource Include="Resources\7_of_spades.png" />
+    <AvaloniaResource Include="Resources\8_of_clubs.png" />
+    <AvaloniaResource Include="Resources\8_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\8_of_hearts.png" />
+    <AvaloniaResource Include="Resources\8_of_spades.png" />
+    <AvaloniaResource Include="Resources\9_of_clubs.png" />
+    <AvaloniaResource Include="Resources\9_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\9_of_hearts.png" />
+    <AvaloniaResource Include="Resources\9_of_spades.png" />
+    <AvaloniaResource Include="Resources\ace_of_clubs.png" />
+    <AvaloniaResource Include="Resources\ace_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\ace_of_hearts.png" />
+    <AvaloniaResource Include="Resources\ace_of_spades.png" />
+    <AvaloniaResource Include="Resources\back.png" />
+    <AvaloniaResource Include="Resources\black_joker.png" />
+    <AvaloniaResource Include="Resources\jack_of_clubs.png" />
+    <AvaloniaResource Include="Resources\jack_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\jack_of_hearts.png" />
+    <AvaloniaResource Include="Resources\jack_of_spades.png" />
+    <AvaloniaResource Include="Resources\king_of_clubs.png" />
+    <AvaloniaResource Include="Resources\king_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\king_of_hearts.png" />
+    <AvaloniaResource Include="Resources\king_of_spades.png" />
+    <AvaloniaResource Include="Resources\queen_of_clubs.png" />
+    <AvaloniaResource Include="Resources\queen_of_diamonds.png" />
+    <AvaloniaResource Include="Resources\queen_of_hearts.png" />
+    <AvaloniaResource Include="Resources\queen_of_spades.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cecs475.War.Model\Cecs475.War.Model.csproj" />
+  </ItemGroup>
+</Project>

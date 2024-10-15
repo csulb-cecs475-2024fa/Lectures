@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{78730E30-E212-48F7-915B-84F5C627BC06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cecs475.War.Model", "src\Cecs475.War.Model\Cecs475.War.Model.csproj", "{155C4B90-880A-4A49-9D5E-33C79A19A184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cecs475.War.App", "src\Cecs475.War.App\Cecs475.War.App.csproj", "{B6E466F6-2EB7-49F7-A79C-2446EACB6488}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{155C4B90-880A-4A49-9D5E-33C79A19A184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155C4B90-880A-4A49-9D5E-33C79A19A184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155C4B90-880A-4A49-9D5E-33C79A19A184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155C4B90-880A-4A49-9D5E-33C79A19A184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E466F6-2EB7-49F7-A79C-2446EACB6488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E466F6-2EB7-49F7-A79C-2446EACB6488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E466F6-2EB7-49F7-A79C-2446EACB6488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E466F6-2EB7-49F7-A79C-2446EACB6488}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{155C4B90-880A-4A49-9D5E-33C79A19A184} = {78730E30-E212-48F7-915B-84F5C627BC06}
+		{B6E466F6-2EB7-49F7-A79C-2446EACB6488} = {78730E30-E212-48F7-915B-84F5C627BC06}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA3EE0F3-DFCE-498E-9E90-1A2D10933514}
+	EndGlobalSection
+EndGlobal

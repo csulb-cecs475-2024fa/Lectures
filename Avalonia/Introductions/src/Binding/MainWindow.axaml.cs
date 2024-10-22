@@ -33,13 +33,13 @@ namespace Binding {
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
 			// Set the first employee's age to 100, which does not update the UI.
-			(mSalaryLabel.DataContext as Employee).Age = 100;
+			((Employee)mSalaryLabel.DataContext).Age = 100;
 		}
 
 		private void Button2_Click(object sender, RoutedEventArgs e) {
 			// Set the second employee's age to 100. Because we have two-way binding with a model that implements
 			// INotifyPropertyChanged, the UI will automatically update.
-			(mSalary2Label.DataContext as NotifyingEmployee).Age = 100;
+			((NotifyingEmployee)mSalary2Label.DataContext).Age = 100;
 		}
 
 

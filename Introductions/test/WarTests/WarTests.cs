@@ -13,8 +13,13 @@ namespace Cecs475.War.Test {
 		[Fact]
 		public void TestShuffle() {
 			Random r = new Random(1);
+			//int x = r.Next(52);
 			Deck d = new Deck();
 			d.Shuffle(r);
+
+			Card c = d.DealOne();
+			Assert.True(c.Kind == Card.CardKind.Ace);
+			Assert.True(c.Suit == Card.CardSuit.Spades);
 
 		}
 	}

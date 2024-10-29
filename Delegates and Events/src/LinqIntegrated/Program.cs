@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace LinqIntegrated {
@@ -22,7 +23,10 @@ namespace LinqIntegrated {
 					return mProductionCompany;
 				}
 				set {
-					mProductionCompany = value;
+					// Putting an arbitrary condition on the value the property is set to.
+					if (value.Length > 3) {
+						mProductionCompany = value;
+					}
 				}
 			}
 
@@ -38,7 +42,7 @@ namespace LinqIntegrated {
 
 		public static void Main(string[] args) {
 
-			// Given a collection of values...
+			// Given a collection of values...	
 			Movie[] movies = [
 				new() {Title = "Wall-E", Year = 2008, ProductionCompany = "Pixar Animation Studios", Budget = 180000000,
 					Earnings = 521300000, RunningTime = 98 }, // WARNING new syntax
@@ -59,13 +63,12 @@ namespace LinqIntegrated {
 			// onlyPixarMovies is IEnumerable<Movie> containing only the elements of movies that passed the where clause.
 			// More LINQ methods can be called on the result.
 			var f = onlyPixarMovies.Skip(2).First();
-			
+
 
 			// Describe these sequences.
 			Console.WriteLine("Finding nonPixarTitles \n");
 			var nonPixarTitles = movies.Where(m => m.ProductionCompany != "Pixar Animation Studios")
 				.Select(m => m.Title);
-
 
 			Console.WriteLine("Finding shortMovies  \n");
 			var shortMovies = movies.Where(m => m.RunningTime < 100);
@@ -81,6 +84,8 @@ namespace LinqIntegrated {
 			Console.WriteLine("Finding pixarEarnings  \n");
 			var pixarEarnings = movies.Where(m => m.ProductionCompany == "Pixar Animation Studios")
 				.OrderByDescending(m => m.Earnings);
+
+
 
 
 			Console.WriteLine("Finding totalPixarEarnings  \n");

@@ -2,23 +2,20 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:me="using:Cecs475.Avalonia.Binding"
+		xmlns:local="using:Cecs475.Avalonia.Binding"
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		x:Class="Binding.MainWindow"
 		Title="Binding">
-	<Window.Resources>
-		<me:Employee x:Key="employee1" Age="50"/>
-	</Window.Resources>
 	<StackPanel>
 		<Label>One-time Binding Demo</Label>
 		<StackPanel HorizontalAlignment="Left">
 			<WrapPanel>
 				<Label>Age:</Label>
-				<TextBox x:Name="mAgeText" VerticalAlignment="Center" DataContext="{StaticResource employee1}" Text="{Binding Age, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+				<TextBox x:Name="mAgeText" VerticalAlignment="Center" Text="{Binding Age, Mode=OneWay, DataType={x:Type local:Employee}}"/>
 			</WrapPanel>
 			<WrapPanel>
 				<Label>Salary:</Label>
-				<Label x:Name="mSalaryLabel" DataContext="{StaticResource employee1}" Content="{Binding Salary, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+				<Label x:Name="mSalaryLabel" Content="{Binding Salary, Mode=OneWay, DataType={x:Type local:Employee}}"/>
 			</WrapPanel>
 			<Button Click="Button_Click">Set Age to 100</Button>
 		</StackPanel>
@@ -26,12 +23,12 @@
 		<StackPanel HorizontalAlignment="Left">
 			<WrapPanel>
 				<Label>Age:</Label>
-				<TextBox x:Name="mAge2Text" VerticalAlignment="Center" Text="{Binding Age, Mode=TwoWay, DataType={x:Type me:NotifyingEmployee}}"/>
+				<TextBox x:Name="mAge2Text" VerticalAlignment="Center" Text="{Binding Age, Mode=TwoWay, DataType={x:Type local:NotifyingEmployee}}"/>
 				<!-- TwoWay is the default -->
 			</WrapPanel>
 			<WrapPanel>
 				<Label>Salary:</Label>
-				<Label x:Name="mSalary2Label" Content="{Binding Salary, DataType={x:Type me:NotifyingEmployee}}"/>
+				<Label x:Name="mSalary2Label" Content="{Binding Salary, DataType={x:Type local:NotifyingEmployee}}"/>
 			</WrapPanel>
 			<Button Click="Button2_Click">Set Age to 100</Button>
 		</StackPanel>

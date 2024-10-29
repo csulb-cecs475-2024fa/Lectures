@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Cecs475.Students {
-	public class Student {
+	public class Student : IComparable<Student> {
 		public int Id { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
@@ -19,5 +20,11 @@ namespace Cecs475.Students {
 			Hobbies = [];
 		}
 
+		public int CompareTo(Student? s) {
+			if (s is null) {
+				throw new ArgumentNullException("s");
+			}
+			return this.Id.CompareTo(s.Id);
+		}
 	}
 }

@@ -110,9 +110,8 @@ namespace WinForms_Basics {
 				mPicture2.Image = Image.FromStream(file);
 
 				// Setting the .Text field triggers mHPText2_TextChanged.
-				mHPText2.Text = "100";
-				mAttackText2.Text += "0";
-				mDefenseText2.Text += "0";
+				mCharmander.HP = 100;
+				mCharmander.Attack = 600;
 			}
 		}
 

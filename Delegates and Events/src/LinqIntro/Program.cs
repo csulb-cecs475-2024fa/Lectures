@@ -32,7 +32,9 @@ namespace LinqIntro {
 			 * each element of the original sequence in turn.
 			 */
 			var abs = numbers.Select(Math.Abs); // what are T and T2?
+			numbers.Select(x => x < 0);
 			Console.WriteLine(string.Join(", ", abs));
+			Console.WriteLine(string.Join(", ", numbers.Select(x => x < 0)));
 
 			/* Because Select returns another IEnumerable, we can chain a Select call
 			 * onto that if we wish.
@@ -40,7 +42,7 @@ namespace LinqIntro {
 			var sqrts = numbers.Select(Math.Abs).Select(Convert.ToDouble)
 				.Select(Math.Sqrt);
 			// What are T and T2 for each of these Select calls?
-
+			Console.WriteLine(string.Join(",", sqrts));
 
 			/*
 			 * IEnumerable<T> Where(Func<T, bool> predicate): given a predicate function,
@@ -74,7 +76,7 @@ namespace LinqIntro {
 			var product = numbers.Aggregate((x1, x2) => x1 * x2);
 			// With two params, the () are necessary
 
-			var sumOfNegatievs = numbers.Where(x => x < 0).Aggregate((x1, x2) => x1 + x2);
+			var sumOfNegatives = numbers.Where(x => x < 0).Aggregate((x1, x2) => x1 + x2);
 
 			/* 
 			 * bool Any(Func<T, bool> pred): returns true if any of the elements satisfy

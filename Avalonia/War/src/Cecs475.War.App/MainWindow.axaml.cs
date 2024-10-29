@@ -12,6 +12,7 @@ namespace Cecs475.War.App {
 			var model = (WarViewModel)this.FindResource("WarViewModel")!;
 			model.DealOneCard();
 
+
 			// NOTICE: we do not update the Images, the score labels, or any other control
 			// ourself. They are all updated through data bindings to the ViewModel.
 			// AMAZING.

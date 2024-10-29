@@ -18,6 +18,10 @@ namespace Action_Func {
 			Console.WriteLine(p);
 		}
 
+		public static void DoNothing(int p) {
+
+		}
+
 		public static void Main(string[] args) {
 			// Declare variable p equal to the PrintInt function.
 			PrintAnIntFunction p = PrintInt;

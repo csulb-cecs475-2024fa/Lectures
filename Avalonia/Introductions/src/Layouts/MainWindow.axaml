@@ -6,11 +6,6 @@
         x:Class="Layouts.MainWindow"
         Title="Layouts">
 	<StackPanel>
-		<StackPanel.Resources>
-			<!--<Style TargetType="{x:Type Button}">
-				<Setter Property="Margin" Value="0,2,0,0"/>
-			</Style>-->
-		</StackPanel.Resources>
 		<Label>Choose a layout to demo:</Label>
 		<Button x:Name="mWrapBtn" Click="mWrapBtn_Click">Wrap Panel</Button>
 		<Button x:Name="mDockBtn" Click="mDockBtn_Click">Dock Panel</Button>

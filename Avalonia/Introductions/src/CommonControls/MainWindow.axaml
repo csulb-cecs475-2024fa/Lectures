@@ -10,7 +10,7 @@
 		<Button Foreground="Blue" Background="Black">We've already seen buttons</Button>
 		<TextBox>A text box can be edited by the user</TextBox>
 		<RadioButton>Only one radio button can be selected</RadioButton>
-		<RadioButton>Option 2</RadioButton>
+		<RadioButton IsChecked="true">Option 2</RadioButton>
 		<RadioButton>Option 3</RadioButton>
 		<CheckBox>Check boxes can be toggled on and off</CheckBox>
 		<Label>A ComboBox is a drop-down list, where each option is itself a XAML element.</Label>

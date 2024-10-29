@@ -6,16 +6,19 @@
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		x:Class="Binding.MainWindow"
 		Title="Binding">
+	<Window.Resources>
+		<me:Employee x:Key="employee1" Age="50"/>
+	</Window.Resources>
 	<StackPanel>
 		<Label>One-time Binding Demo</Label>
 		<StackPanel HorizontalAlignment="Left">
 			<WrapPanel>
 				<Label>Age:</Label>
-				<TextBox x:Name="mAgeText" VerticalAlignment="Center" Text="{Binding Age, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+				<TextBox x:Name="mAgeText" VerticalAlignment="Center" DataContext="{StaticResource employee1}" Text="{Binding Age, Mode=OneWay, DataType={x:Type me:Employee}}"/>
 			</WrapPanel>
 			<WrapPanel>
 				<Label>Salary:</Label>
-				<Label x:Name="mSalaryLabel" Content="{Binding Salary, Mode=OneWay, DataType={x:Type me:Employee}}"/>
+				<Label x:Name="mSalaryLabel" DataContext="{StaticResource employee1}" Content="{Binding Salary, Mode=OneWay, DataType={x:Type me:Employee}}"/>
 			</WrapPanel>
 			<Button Click="Button_Click">Set Age to 100</Button>
 		</StackPanel>

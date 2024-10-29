@@ -13,7 +13,7 @@
 	forms an element tree. 
 	
 	-->
-	<Button Width="100">Hello, world!</Button>
+	<!--<Button Width="100">Hello, world!</Button>-->
 	<!--
 	This button is a child element of the Window element. 
 	Even the text inside the <Button> tags is another element, whose parent is the Button.
@@ -37,8 +37,8 @@
 	The "Background" property can be assigned a simple color string, OR a more complex
 	pattern like a "brush" that paints a color gradient.
 	-->
-	<!--
-	<Button Width="100">
+
+	<Button Width="100" >
 		<Button.Background>
 			<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
 				<GradientStop Color="Red" />
@@ -47,7 +47,7 @@
 		</Button.Background>
 		Hello, world!
 	</Button>
-	
+	<!--
 	Which compiles as:
 	Button b = new Button();
 	b.Content = "Hello, world!";
@@ -60,5 +60,5 @@
 	brush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
 	b.Background = brush;
 	-->
-	
+
 </Window>

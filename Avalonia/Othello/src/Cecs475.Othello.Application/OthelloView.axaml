@@ -14,6 +14,7 @@
 		<local:OthelloViewModel x:Key="vm"/>
 		<!-- This converter will convert from an int to a colored circle. -->
 		<local:OthelloSquarePlayerConverter x:Key="PlayerColor"/>
+		<local:OthelloSquareBackgroundConverter x:Key="BackgroundColor"/>
 	</UserControl.Resources>
 	<UserControl.DataContext>
 		<StaticResource ResourceKey="vm" x:DataType="local:OthelloViewModel"/>
@@ -50,6 +51,12 @@
 					better target for mouse events.
 					-->
 					<Panel PointerEntered="Panel_PointerEntered" PointerExited="Panel_PointerExited" PointerReleased="Panel_PointerReleased" >
+						<Panel.Background>
+							<MultiBinding Converter="{StaticResource BackgroundColor}">
+								<Binding Path="Position"/>
+								<Binding Path="IsHighlighted"/>
+							</MultiBinding>
+						</Panel.Background>
 						<!-- 
                     A ContentControl is just a placeholder that gets replaced by its Content. 
                     We use it here because it can Bind to the Player property of an OthelloSquare object,

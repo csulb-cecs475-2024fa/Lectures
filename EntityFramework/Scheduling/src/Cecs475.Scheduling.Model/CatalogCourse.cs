@@ -9,12 +9,15 @@ namespace Cecs475.Scheduling.Model {
 	/// Represents one course offered at CSULB.
 	/// </summary>
 	public class CatalogCourse {
+		// The preferred way of configuring a relational database representation of a POCO
+		// is to NOT use attributes, but to instead use *configuration* statements
+		// in the DbContext class.
+
 		public int Id { get; set; }
 		public string DepartmentName { get; set; }
 		public string CourseNumber { get; set; }
 
-		// We'll talk about the virtual part later.
-		public virtual ICollection<CatalogCourse> Prerequisites { get; set; } = new List<CatalogCourse>();
+		public ICollection<CatalogCourse> Prerequisites { get; set; } = new List<CatalogCourse>();
 
 		public override string ToString() {
 			return DepartmentName + " " + CourseNumber;

@@ -16,8 +16,8 @@ namespace Cecs475.Scheduling.Model {
 		public int Id { get; set; }
 		public string LastName { get; set; }
 		public string FirstName { get; set; }
-		public virtual ICollection<CourseGrade> Transcript { get; set; } = new List<CourseGrade>();
-		public virtual ICollection<CourseSection> EnrolledCourses { get; set; } = new List<CourseSection>();
+		public ICollection<CourseGrade> Transcript { get; set; } = new List<CourseGrade>();
+		public ICollection<CourseSection> EnrolledCourses { get; set; } = new List<CourseSection>();
 
 		public RegistrationResults CanRegisterForCourseSection(CourseSection section) {
 			if (section.EnrolledStudents.Where(s => s.Id == this.Id).Any())

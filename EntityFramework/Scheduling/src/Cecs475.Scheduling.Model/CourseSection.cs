@@ -20,16 +20,16 @@ namespace Cecs475.Scheduling.Model {
 	/// </summary>
 	public class CourseSection {
 		public int Id { get; set; }
-		public virtual CatalogCourse CatalogCourse { get; set; }
-		public virtual Instructor Instructor { get; set; }
-		public virtual SemesterTerm Semester { get; set; }
+		public CatalogCourse CatalogCourse { get; set; }
+		public Instructor Instructor { get; set; }
+		public SemesterTerm Semester { get; set; }
 
 		public int SectionNumber { get; set; }
 		public DaysOfWeek MeetingDays { get; set; }	
 		public DateTime StartTime { get; set; }
 		public DateTime EndTime { get; set; }
 
-		public virtual ICollection<Student> EnrolledStudents { get; set; } = new List<Student>();
+		public ICollection<Student> EnrolledStudents { get; set; } = new List<Student>();
 
 		public override string ToString() {
 			return CatalogCourse.ToString() + SectionNumber.ToString("D2");

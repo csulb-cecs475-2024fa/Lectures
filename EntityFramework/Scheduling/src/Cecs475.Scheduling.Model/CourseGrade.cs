@@ -10,9 +10,9 @@ namespace Cecs475.Scheduling.Model {
 	}
 	public class CourseGrade {
 		public int Id { get; set; }
-		public virtual Student StudentOfRecord { get; set; }
-		public virtual CourseSection CourseSection { get; set; }
-		public virtual GradeTypes GradeEarned { get; set; }
+		public Student StudentOfRecord { get; set; }
+		public CourseSection CourseSection { get; set; }
+		public GradeTypes GradeEarned { get; set; }
 
 		public override string ToString() {
 			return $"{CourseSection} ({GradeEarned})";

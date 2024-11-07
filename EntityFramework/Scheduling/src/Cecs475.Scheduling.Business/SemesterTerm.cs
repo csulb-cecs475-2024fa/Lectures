@@ -30,6 +30,6 @@ namespace Cecs475.Scheduling.Model {
 		public DateTime EndDate { get; set; }
 
 		[Required]
-		public ICollection<CourseSection> CourseSections { get; set; } = new List<CourseSection>();
+		public ICollection<ClassSection> CourseSections { get; set; } = new List<ClassSection>();
 	}
 }

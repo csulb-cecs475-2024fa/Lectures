@@ -17,9 +17,9 @@ namespace Cecs475.Scheduling.Model {
 		public string LastName { get; set; }
 		public string FirstName { get; set; }
 		public ICollection<CourseGrade> Transcript { get; set; } = new List<CourseGrade>();
-		public ICollection<CourseSection> EnrolledCourses { get; set; } = new List<CourseSection>();
+		public ICollection<ClassSection> EnrolledClasses { get; set; } = new List<ClassSection>();
 
-		public RegistrationResults CanRegisterForCourseSection(CourseSection section) {
+		public RegistrationResults CanRegisterForCourseSection(ClassSection section) {
 			if (section.EnrolledStudents.Where(s => s.Id == this.Id).Any())
 				return RegistrationResults.AlreadyEnrolled;
 
@@ -32,7 +32,7 @@ namespace Cecs475.Scheduling.Model {
 					return RegistrationResults.PrerequisiteNotMet;
 			}
 
-			foreach (var en in EnrolledCourses) {
+			foreach (var en in EnrolledClasses) {
 				if ((en.MeetingDays & section.MeetingDays) != DaysOfWeek.None) {
 					if ((en.StartTime <= section.EndTime && section.StartTime <= en.EndTime) ||
 						(section.StartTime <= en.EndTime && en.StartTime <= section.EndTime)){

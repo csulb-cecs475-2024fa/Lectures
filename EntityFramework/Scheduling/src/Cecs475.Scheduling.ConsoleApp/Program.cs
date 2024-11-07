@@ -1,4 +1,5 @@
 ﻿using Cecs475.Scheduling.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,15 @@ namespace Test {
 	class Program {
 		static void Main(string[] args) {
 
-			CatalogContext con = new CatalogContext();
+
+			CatalogContext con = new CatalogContext(@"data source=(LocalDb)\MSSQLLocalDb;initial catalog=CsulbCatalog;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework");
+			con.Database.EnsureCreated();
 
 			int choice = -1;
 			do {
 				Console.WriteLine("Menu:\n0. Quit\n1. Populate database\n2. Show courses\n3. Show course sections\n"
-					+ "4. Print transcript\n6. Reflection and type demos");
-				choice = Convert.ToInt32(Console.ReadLine());
+					+ "4. Print transcript\n5. Attempt to register");
+				choice = int.Parse(Console.ReadLine()!);
 
 				switch (choice) {
 					case 1:
@@ -75,7 +78,7 @@ namespace Test {
 						con.Instructors.Add(anthony);
 
 						// Add sections
-						var cecs174_99 = new CourseSection() {
+						var cecs174_99 = new ClassSection() {
 							CatalogCourse = cecs174,
 							SectionNumber = 1,
 							Instructor = neal,
@@ -85,7 +88,7 @@ namespace Test {
 						};
 						spring2017.CourseSections.Add(cecs174_99);
 
-						var cecs228_99 = new CourseSection() {
+						var cecs228_99 = new ClassSection() {
 							CatalogCourse = cecs228,
 							SectionNumber = 99,
 							Instructor = anthony,
@@ -95,7 +98,7 @@ namespace Test {
 						};
 						spring2017.CourseSections.Add(cecs228_99);
 
-						var cecs228_01 = new CourseSection() {
+						var cecs228_01 = new ClassSection() {
 							CatalogCourse = cecs228,
 							SectionNumber = 1,
 							Instructor = neal,
@@ -105,17 +108,17 @@ namespace Test {
 						};
 						fall2017.CourseSections.Add(cecs228_01);
 
-						//var cecs228_03 = new CourseSection() {
-						//	CatalogCourse = cecs228,
-						//	SectionNumber = 1,
-						//	Instructor = neal,
-						//	MeetingDays = DaysOfWeek.Monday | DaysOfWeek.Wednesday,
-						//	StartTime = new DateTime(2017, 1, 1, 12, 30, 0), // 9 am
-						//	EndTime = new DateTime(2017, 1, 1, 13, 20, 0),
-						//};
-						//fall2017.CourseSections.Add(cecs228_03);
+						var cecs277_01 = new ClassSection() {
+							CatalogCourse = cecs277,
+							SectionNumber = 1,
+							Instructor = anthony,
+							MeetingDays = DaysOfWeek.Monday | DaysOfWeek.Wednesday,
+							StartTime = new DateTime(2017, 1, 1, 12, 30, 0), // 9 am
+							EndTime = new DateTime(2017, 1, 1, 13, 20, 0),
+						};
+						fall2017.CourseSections.Add(cecs277_01);
 
-						var cecs274_05 = new CourseSection() {
+						var cecs274_05 = new ClassSection() {
 							CatalogCourse = cecs274,
 							SectionNumber = 5,
 							Instructor = anthony,
@@ -125,7 +128,7 @@ namespace Test {
 						};
 						fall2017.CourseSections.Add(cecs274_05);
 
-						var cecs274_11 = new CourseSection() {
+						var cecs274_11 = new ClassSection() {
 							CatalogCourse = cecs274,
 							SectionNumber = 11,
 							Instructor = anthony,
@@ -136,8 +139,8 @@ namespace Test {
 						fall2017.CourseSections.Add(cecs274_11);
 
 						Student s1 = new Student() {
-							FirstName = "A",
-							LastName = "B",
+							FirstName = "Abby",
+							LastName = "Blitzen",
 						};
 						s1.Transcript.Add(new CourseGrade() {
 							CourseSection = cecs174_99,
@@ -150,16 +153,24 @@ namespace Test {
 						con.Students.Add(s1);
 
 						Student s2 = new Student() {
-							FirstName = "C",
-							LastName = "D",
+							FirstName = "Carmen",
+							LastName = "Diego",
 						};
 						con.Students.Add(s2);
+						s2.EnrolledClasses.Add(cecs274_11);
 
 						con.SaveChanges();
 						break;
+
+
 					case 2:
 						// Print all courses in the catalog
-						foreach (var course in con.Courses.OrderBy(c => c.CourseNumber)) {
+
+						// Load all courses, and include their prerequisite references.
+						var allCourses = con.Courses.Include(c => c.Prerequisites)
+							.OrderBy(c => c.CourseNumber);
+
+						foreach (var course in allCourses) {
 							Console.Write($"{course.DepartmentName} {course.CourseNumber}");
 							if (course.Prerequisites.Count > 0) {
 								Console.Write(" (Prerequisites: ");
@@ -173,7 +184,13 @@ namespace Test {
 
 					case 3:
 						// Print all offered sections for Fall 2017
-						var fallSem = con.SemesterTerms.Where(s => s.Name == "Fall 2017").FirstOrDefault();
+
+						// Our CatalogContext configures ClassSection to always include its CatalogCourse.
+						// We also want Instructor here, so we must include it.
+						var fallSem = con.SemesterTerms
+										.Include(s => s.CourseSections)
+										.ThenInclude(s => s.Instructor)
+										.Where(s => s.Name == "Fall 2017").FirstOrDefault();
 						if (fallSem == null) {
 							break;
 						}
@@ -187,13 +204,19 @@ namespace Test {
 						break;
 
 					case 4:
+						// Print a student's transcript.
+
 						Console.WriteLine("Enter a name:");
-						string name = Console.ReadLine();
+						string name = Console.ReadLine()!;
 						string[] split = name.Split(' ');
-						string f = split[0], l = split[1];
-						Student tStudent = con.Students.Where(s => s.FirstName == f && s.LastName == l)
+						string first = split[0], last = split[1];
+						
+						// Load the student and include their transcript.
+						Student? tStudent = con.Students
+												.Include(s => s.Transcript)
+												.Where(s => s.FirstName == first && s.LastName == last)
 							.FirstOrDefault();
-						if (tStudent == null) {
+						if (tStudent is null) {
 							Console.WriteLine("Not found");
 							break;
 						}
@@ -204,32 +227,43 @@ namespace Test {
 						break;
 
 					case 5:
+						// Attempt to enroll a student in a class section.
 						Console.WriteLine("Enter a name:");
-						string ename = Console.ReadLine();
-						string[] esplit = ename.Split(' ');
-						string ef = esplit[0], el = esplit[1];
-						Student eStudent = con.Students.Where(s => s.FirstName == ef && s.LastName == el)
+						string enrollName = Console.ReadLine()!;
+						string[] enrollSplit = enrollName.Split(' ');
+						string enrollFirst = enrollSplit[0], enrollLast = enrollSplit[1];
+						Student? eStudent = con.Students
+												.Include(s => s.Transcript)
+												.Include(s => s.EnrolledClasses)
+												.Where(s => s.FirstName == enrollFirst && s.LastName == enrollLast)
 							.FirstOrDefault();
-						if (eStudent == null) {
+						if (eStudent is null) {
 							Console.WriteLine("Not found");
 							break;
 						}
 
-						Console.WriteLine("Enter a course section for Fall 2017:");
-						string cName = Console.ReadLine();
-						string[] csplit = cName.Split(new char[] { ' ', '-' });
+						Console.WriteLine("Enter a class section for Fall 2017, e.g., CECS 174-01:");
+						string className = Console.ReadLine()!;
+						string[] csplit = className.Split([' ', '-']);
 						string dept = csplit[0];
 						string num = csplit[1];
-						int sec = Convert.ToInt32(csplit[2]);
+						if (!int.TryParse(csplit[2], out int secNum)) {
+							Console.WriteLine("Bad class identifier");
+							break;
+						}
 
-						SemesterTerm f2017 = con.SemesterTerms.Where(s => s.Name == "Fall 2017").First();
-						CourseSection sec2 = f2017.CourseSections.Where(
+						// Load the semester, including its sections.
+						SemesterTerm f2017 = con.SemesterTerms
+												.Include(s => s.CourseSections)
+												.Where(s => s.Name == "Fall 2017").First();
+						// Load the class section matching the given department name, number, and section.
+						ClassSection? sec2 = f2017.CourseSections.Where(
 							c => c.CatalogCourse.DepartmentName == dept &&
 							c.CatalogCourse.CourseNumber == num &&
-							c.SectionNumber == sec).FirstOrDefault();
+							c.SectionNumber == secNum).FirstOrDefault();
 
-						if (sec2 == null) {
-							Console.WriteLine("not found");
+						if (sec2 is null) {
+							Console.WriteLine("Section not found");
 							break;
 						}
 
@@ -237,9 +271,6 @@ namespace Test {
 						Console.WriteLine(register);
 						break;
 
-					case 6:
-
-						break;
 				}
 				Console.WriteLine();
 				Console.WriteLine();

@@ -18,6 +18,6 @@ namespace Cecs475.Scheduling.Model {
 		[Required]
 		public string LastName { get; set; }
 
-		public virtual ICollection<CourseSection> CourseSections { get; set; } = new List<CourseSection>();
+		public virtual ICollection<ClassSection> CourseSections { get; set; } = new List<ClassSection>();
 	}
 }

@@ -18,7 +18,7 @@ namespace Cecs475.Scheduling.Model {
 	/// <summary>
 	/// Represents one offering of a course section during a semester.
 	/// </summary>
-	public class CourseSection {
+	public class ClassSection {
 		public int Id { get; set; }
 		public CatalogCourse CatalogCourse { get; set; }
 		public Instructor Instructor { get; set; }
@@ -32,7 +32,7 @@ namespace Cecs475.Scheduling.Model {
 		public ICollection<Student> EnrolledStudents { get; set; } = new List<Student>();
 
 		public override string ToString() {
-			return CatalogCourse.ToString() + SectionNumber.ToString("D2");
+			return $"{CatalogCourse}-{SectionNumber:D2}";
 		}
 	}
 }

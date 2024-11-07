@@ -11,7 +11,7 @@ namespace Cecs475.Scheduling.Model {
 	public class CourseGrade {
 		public int Id { get; set; }
 		public Student StudentOfRecord { get; set; }
-		public CourseSection CourseSection { get; set; }
+		public ClassSection CourseSection { get; set; }
 		public GradeTypes GradeEarned { get; set; }
 
 		public override string ToString() {

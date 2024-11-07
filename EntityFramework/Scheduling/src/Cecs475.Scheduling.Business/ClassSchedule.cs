@@ -10,6 +10,6 @@ namespace Cecs475.Scheduling.Model {
 		public int Id { get; set; }
 		public virtual SemesterTerm SemesterTerm { get; set; }
 		public virtual Student Student { get; set; }
-		public ICollection<CourseSection> Courses { get; set; } = new List<CourseSection>();
+		public ICollection<ClassSection> Classes { get; set; } = new List<ClassSection>();
 	}
 }

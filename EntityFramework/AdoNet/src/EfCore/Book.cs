@@ -10,6 +10,6 @@ namespace EfCore {
 		public string Title { get; set; }
 		public string Publisher { get; set; }
 		public int AuthorId { get; set; }
-		public Author Author { get; set; } = null!;	
+		public Author Author { get; set; }
 	}
 }

@@ -115,6 +115,7 @@ namespace ThreeTier.Data {
 			mConnection = connection;
 		}
 		public AuthorDto? Get(int id) {
+			SqlDataReader? reader = null;
 			try {
 				mConnection.Open();
 
@@ -122,7 +123,7 @@ namespace ThreeTier.Data {
 				cmd.CommandText = "SELECT * FROM Author WHERE Id = @AuthorId";
 				cmd.Parameters.Add(new SqlParameter("@AuthorId", id));
 
-				SqlDataReader reader = cmd.ExecuteReader();
+				reader = cmd.ExecuteReader();
 				if (reader.Read()) {
 					return new AuthorDto() {
 						Id = (int)reader["Id"],
@@ -136,6 +137,7 @@ namespace ThreeTier.Data {
 				return null;
 			}
 			finally {
+				reader?.Close();
 				mConnection.Close();
 			}
 		}

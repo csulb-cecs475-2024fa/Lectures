@@ -17,7 +17,15 @@ namespace Cecs475.Scheduling.Model {
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
-			
+
+			modelBuilder.Entity<CatalogCourse>()
+				.Property(c => c.CourseNumber)
+				.HasMaxLength(5);
+
+			modelBuilder.Entity<CatalogCourse>()
+				.Property(c => c.DepartmentName)
+				.HasColumnName("Department");
+
 			// This "Fluid" statement specifies that every CatalogCourse has many Prerequisites,
 			// each of which may have many other Prerequisites. The table used to model the relation
 			// will be called CatalogCourse_Prerequisite.

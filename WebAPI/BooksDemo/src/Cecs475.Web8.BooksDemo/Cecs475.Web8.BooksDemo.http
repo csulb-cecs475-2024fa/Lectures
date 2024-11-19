@@ -1,0 +1,6 @@
+@Cecs475.Web8.BooksDemo_HostAddress = http://localhost:5033
+
+GET {{Cecs475.Web8.BooksDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

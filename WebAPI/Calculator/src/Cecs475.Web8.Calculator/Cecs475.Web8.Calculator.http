@@ -1,0 +1,6 @@
+@Cecs475.Web8.Calculator_HostAddress = http://localhost:5013
+
+GET {{Cecs475.Web8.Calculator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

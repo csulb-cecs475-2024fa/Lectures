@@ -13,7 +13,6 @@ namespace Cecs475.Scheduling.Model {
 		public DbSet<Student> Students { get; set; }
 
 		private string mConnectionString;
-		// The parameter to the base constructor is the name of the ConnectionString in app.config
 		public CatalogContext(string connectionString) : base() {
 			mConnectionString = connectionString;
 		}
@@ -31,22 +30,31 @@ namespace Cecs475.Scheduling.Model {
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
 
+			// Instead of specifying column constraints with C# Attributes, we can also use a "builder"
+			// patern.
+
+			// Set constraints on the CatalogCourse columns.
+			// As a reminder, the "Id" property will automatically become the table's primary key.
 			modelBuilder.Entity<CatalogCourse>()
 				.Property(c => c.CourseNumber)
-				.HasMaxLength(5);
+				.HasMaxLength(5); // CourseNumber max length is 5.
+
 			modelBuilder.Entity<CatalogCourse>()
 				.Property(c => c.DepartmentName)
-				.HasColumnName("Department");
+				.HasColumnName("Department"); // The C# property DepartmentName will be called Department in the database.
+
 			modelBuilder.Entity<CatalogCourse>()
-				.ToTable("CatalogCourses");
+				.ToTable("CatalogCourses"); // Set the name of the table manually.
+
 			modelBuilder.Entity<CatalogCourse>()
 				.Navigation(c => c.Prerequisites)
-				.AutoInclude();
+				.AutoInclude(); // When retrieving a CatalogCourse, always include its prerequisites.
 
 			modelBuilder.Entity<CatalogCourse>()
 				.HasMany(c => c.Prerequisites)
 				.WithMany()
-				.UsingEntity(join => join.ToTable("CatalogCourse_Prerequisites"));
+				.UsingEntity(join => join.ToTable("CatalogCourse_Prerequisites")); // Prerequisites are a many-to-many association.
+
 
 			modelBuilder.Entity<ClassSection>()
 				.HasMany(c => c.EnrolledStudents)

@@ -38,37 +38,37 @@ namespace Cecs475.Scheduling.Web.Controllers {
 		private Model.CatalogContext mContext = new Model.CatalogContext(ApplicationSettings.ConnectionString);
 
 		[HttpGet]
-		public IActionResult GetStudents() {
-			return Ok(mContext.Students.Select(StudentDto.From));
+		public async Task<IActionResult> GetStudents() {
+			var students = await mContext.Students.ToListAsync();
+			return Ok(students.Select(StudentDto.From));
 		}
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public IActionResult GetStudent(int id) {
-			var result = mContext.Students.Where(s => s.Id == id).Select(StudentDto.From)
-				.FirstOrDefault();
-			if (result is null) {
+		public async Task<IActionResult> GetStudent(int id) {
+			var student = await mContext.Students.SingleOrDefaultAsync(s => s.Id == id);
+			
+			if (student is null) {
 				return NotFound();
 			}
-			return Ok(result);
+			return Ok(StudentDto.From(student));
 		}
 
 		[HttpGet]
 		[Route("{name:alpha}")]
-		public IActionResult GetStudent(string name) {
-			var result = mContext.Students.Where(s => s.FirstName + " " + s.LastName == name).Select(StudentDto.From)
-				.FirstOrDefault();
-			if (result is null) {
+		public async Task<IActionResult> GetStudent(string name) {
+			var student = await mContext.Students.FirstOrDefaultAsync(s => s.FirstName + " " + s.LastName == name);
+			if (student is null) {
 				return NotFound();
 			}
-			return Ok(result);
+			return Ok(StudentDto.From(student));
 		}
 
 		[HttpGet]
 		[Route("{id}/transcript")]
-		public IActionResult GetTranscript(int id) {
-			var student = mContext.Students.Include(s => s.Transcript)
-				.Where(s => s.Id == id).FirstOrDefault();
+		public async Task<IActionResult> GetTranscript(int id) {
+			var student = await mContext.Students.Include(s => s.Transcript)
+				.FirstOrDefaultAsync(s => s.Id == id);
 			if (student is null) {
 				return NotFound();
 			}
@@ -76,36 +76,36 @@ namespace Cecs475.Scheduling.Web.Controllers {
 		}
 
 		[HttpPost]
-		public void Post([FromBody] StudentDto value) {
+		public async void Post([FromBody] StudentDto value) {
 			mContext.Students.Add(new Model.Student() {
 				FirstName = value.FirstName,
 				LastName = value.LastName
 			});
-			mContext.SaveChanges();
+			await mContext.SaveChangesAsync();
 		}
 
 		[HttpPut]
 		[Route("{id}")]
-		public IActionResult Put(int id, [FromBody] StudentDto value) {
-			var student = mContext.Students.Where(s => s.Id == id).FirstOrDefault();
+		public async Task<IActionResult> Put(int id, [FromBody] StudentDto value) {
+			var student = await mContext.Students.SingleOrDefaultAsync(s => s.Id == id);
 			if (student is null) {
 				return NotFound();
 			}
 			student.FirstName = value.FirstName;
 			student.LastName = value.LastName;
-			mContext.SaveChanges();
+			await mContext.SaveChangesAsync();
 			return Ok();
 		}
 
 		[HttpDelete]
 		[Route("{id}")]
-		public IActionResult Delete(int id) {
-			var student = mContext.Students.Where(s => s.Id == id).FirstOrDefault();
+		public async Task<IActionResult> Delete(int id) {
+			var student = await mContext.Students.SingleOrDefaultAsync(s => s.Id == id);
 			if (student is null) {
 				return NotFound();
 			}
 			mContext.Students.Remove(student);
-			mContext.SaveChanges();
+			await mContext.SaveChangesAsync();
 			return Ok();
 		}
 	}

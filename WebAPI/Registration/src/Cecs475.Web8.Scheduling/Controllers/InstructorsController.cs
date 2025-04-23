@@ -42,10 +42,10 @@ namespace Cecs475.Scheduling.Web.Controllers {
 		public async Task<IActionResult> GetInstructor(int id) {
 			// SingleOrDefaultAsync is an async version of SingleOrDefault.
 			var instructor = await mContext.Instructors.SingleOrDefaultAsync(i => i.Id == id);
-			if (instructor != null) {
-				return Ok(InstructorDto.From(instructor));
+			if (instructor is null) {
+				return NotFound();
 			}
-			return NotFound();
+			return Ok(InstructorDto.From(instructor));
 		}
 
 		[HttpPost]
@@ -53,21 +53,20 @@ namespace Cecs475.Scheduling.Web.Controllers {
 			var existing = await mContext.Instructors.SingleOrDefaultAsync(i => i.FirstName == instructor.FirstName
 				&& i.LastName == instructor.LastName);
 
-			if (existing != null) {
+			if (existing is not null) {
 				return Forbid();
 			}
 
-			mContext.Instructors.Add(new Instructor() {
+			Instructor newInstructor = new Instructor() {
 				FirstName = instructor.FirstName,
 				LastName = instructor.LastName
-			});
+			};
+			mContext.Instructors.Add(newInstructor);
 
 			// Save the changes to the db asynchronously.
 			int records = await mContext.SaveChangesAsync();
 			if (records == 1) {
-				var loaded = await mContext.Instructors.SingleOrDefaultAsync(i => i.FirstName == instructor.FirstName
-					&& i.LastName == instructor.LastName);
-				return Ok(InstructorDto.From(loaded));
+				return Ok(InstructorDto.From(newInstructor));
 			}
 			return BadRequest();
 		}
